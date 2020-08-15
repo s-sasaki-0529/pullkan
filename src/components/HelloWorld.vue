@@ -1,5 +1,5 @@
 <template>
-  <div class="pr-card-wrapper" :key="pr.id" v-for="pr in ownPullRequests">
+  <div class="pr-card-wrapper" :key="pr.id" v-for="pr in assignedPullRequests">
     <PRCard :pr="pr" />
   </div>
 </template>
@@ -16,7 +16,8 @@ export default defineComponent({
   async setup() {
     const store = await dispatch()
     return {
-      ownPullRequests: store.ownPullRequests.value
+      ownPullRequests: store.ownPullRequests.value,
+      assignedPullRequests: store.assignedPullRequests.value
     }
   }
 })
