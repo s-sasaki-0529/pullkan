@@ -1,19 +1,16 @@
 <template>
   <div>
-    {{ state.msg }}
+    {{ pull_requests }}
   </div>
 </template>
 
 <script>
-import { reactive } from "vue";
+import pull_requests from "../lib/pull_requests"
+
 export default {
   setup() {
-    const state = reactive({
-      msg: 'Hello, Vue3!!'
-    })
-
     return {
-      state
+      pull_requests
     }
   }
 }

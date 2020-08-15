@@ -1,4 +1,5 @@
-import response from "./response_mock";
+// TODO: HTTP経由でGithubAPIをたたけるようにする
+import response from "../response_mock";
 
 class User {
   constructor({ id, name, avatarUrl }) {
@@ -60,4 +61,4 @@ const pull_requests = response.data.repository.pullRequests.edges.map((r) => {
   });
 });
 
-console.log(pull_requests);
+export default pull_requests
