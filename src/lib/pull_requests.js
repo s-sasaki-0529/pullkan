@@ -17,9 +17,9 @@ class Review {
 }
 
 class PR {
-  constructor({ id, title, url, assignees, requestedReviewers, reviewers }) {
+  constructor({ id, title, url, author, requestedReviewers, reviewers }) {
     this.id = id;
-    this.assignees = assignees;
+    this.author = author;
     this.title = title;
     this.url = url;
     this.requestedReviewers = requestedReviewers;
@@ -33,12 +33,10 @@ const pull_requests = response.data.repository.pullRequests.edges.map((r) => {
     id: node.id,
     title: node.title,
     url: node.url,
-    assignees: node.assignees.edges.map((e) => {
-      return new User({
-        id: e.node.id,
-        name: e.node.login,
-        avatarUrl: e.node.avatarUrl,
-      });
+    author: new User({
+      id: node.author.id,
+      name: node.author.login,
+      avatarUrl: node.author.avatarUrl,
     }),
     requestedReviewers: node.reviewRequests.edges.map((e) => {
       const reviewer = e.node.requestedReviewer
@@ -61,4 +59,5 @@ const pull_requests = response.data.repository.pullRequests.edges.map((r) => {
   });
 });
 
+console.log(pull_requests)
 export default pull_requests
