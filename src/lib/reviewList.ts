@@ -2,9 +2,16 @@ import { Review } from "./review";
 import { User } from "./user";
 
 export class ReviewList {
-  constructor(public reviews: Review[]) {}
+  public length: Number;
 
+  constructor(public reviews: Review[]) {
+    this.length = reviews.length;
+  }
+
+  /**
+   * ユーザで絞り込む
+   */
   byUser(user: User) {
-    return this.reviews.filter((r) => r.user.id === user.id);
+    return new ReviewList(this.reviews.filter((r) => r.user.id === user.id));
   }
 }
