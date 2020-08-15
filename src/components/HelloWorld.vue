@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { pull_requests } from "../lib/pull_requests"
+import { pullRequests } from "../lib/pullRequests"
 import PRCard from './PRCard'
 
 export default {
@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     pull_requests () {
-      return pull_requests
+      return pullRequests
     }
   }
 }

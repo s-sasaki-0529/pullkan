@@ -11,7 +11,7 @@
 
 <script>
 import { computed } from "vue";
-import { PR } from "../lib/pull_requests";
+import { PR } from "../lib/pr";
 export default {
   props: {
     pr: PR,

@@ -1,0 +1,6 @@
+export type REVIEW_STATUS =
+  | "APPROVED"
+  | "CHANGES_REQUESTED"
+  | "COMMENTED"
+  | "DISMISSED"
+  | "PENDING";
