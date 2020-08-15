@@ -5,6 +5,8 @@ import { Review } from "./review";
 import { PR } from "./pr";
 
 const raw_pull_requests = response.data.repository.pullRequests.edges;
+const raw_viewer = response.data.viewer;
+
 const pullRequests = raw_pull_requests.map((r: any) => {
   const node = r.node;
   return new PR(
@@ -33,4 +35,10 @@ const pullRequests = raw_pull_requests.map((r: any) => {
   );
 });
 
-export { pullRequests };
+const currentUser = new User(
+  raw_viewer.id,
+  raw_viewer.login,
+  raw_viewer.avatarUrl
+);
+
+export { pullRequests, currentUser };
