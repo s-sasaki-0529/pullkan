@@ -1,21 +1,30 @@
 <template>
   <div class="pr">
-    <a :href="pr.url" target="_blank">
+    <a :href="url" target="_blank">
       <h3>
-        <img width="32" :src="pr.author.avatarUrl" />
-        {{ pr.title }}
+        <img width="32" :src="avatarUrl" />
+        {{ title }}
       </h3>
     </a>
   </div>
 </template>
 
 <script>
-import { PR } from "../lib/pull_requests.ts";
+import { computed } from "vue";
+import { PR } from "../lib/pull_requests";
 export default {
   props: {
-    pr: {
-      type: PR,
-      required: true
+    pr: PR,
+  },
+  setup(props) {
+    const url = computed(() => props.pr.url)
+    const title = computed(() => props.pr.title)
+    const avatarUrl = computed(() => props.pr.author.avatarUrl)
+
+    return {
+      url,
+      title,
+      avatarUrl
     }
   }
 }
