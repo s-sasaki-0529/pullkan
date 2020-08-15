@@ -9,12 +9,20 @@
   </div>
 </template>
 
-<script>
-import { computed } from "vue";
+<script lang="ts">
+import { defineComponent, computed } from "vue";
 import { PR } from "../lib/pr";
-export default {
+
+type Props = {
+  pr: PR
+}
+
+export default defineComponent({
   props: {
-    pr: PR,
+    pr: {
+      type: PR,
+      required: true
+    }
   },
   setup(props) {
     const url = computed(() => props.pr.url)
@@ -27,7 +35,7 @@ export default {
       avatarUrl
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

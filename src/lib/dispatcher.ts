@@ -2,6 +2,7 @@ import { callAPI } from "./http";
 import { User } from "./user";
 import { Review } from "./review";
 import { PR } from "./pr";
+import { Store } from "../composition/store";
 
 async function dispatch() {
   const apiResponse = await callAPI();
@@ -15,7 +16,7 @@ async function dispatch() {
     rawViewer.avatarUrl
   );
 
-  const pullRequests = rawPullRequests.map((r: any) => {
+  const pullRequests: PR[] = rawPullRequests.map((r: any) => {
     const node = r.node;
     return new PR(
       node.id,
@@ -42,11 +43,7 @@ async function dispatch() {
       })
     );
   });
-
-  return {
-    currentUser,
-    pullRequests,
-  };
+  return Store(pullRequests, currentUser);
 }
 
 export { dispatch };

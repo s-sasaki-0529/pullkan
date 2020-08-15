@@ -4,19 +4,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { dispatch } from "../lib/dispatcher"
-import PRCard from './PRCard'
+import PRCard from './PRCard.vue'
 
-export default {
+export default defineComponent({
   components: {
     PRCard
   },
   async setup() {
-    const { currentUser, pullRequests } = await dispatch()
+    const store = await dispatch()
+    console.log(store)
     return {
-      currentUser, pullRequests
+      currentUser: store.currentUser,
+      pullRequests: store.pullRequests
     }
   }
-}
+})
 </script>
