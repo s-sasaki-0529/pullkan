@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <HelloWorld />
+    <Suspense>
+      <template #default>
+        <HelloWorld />
+      </template>
+      <template #fallback>
+        ...loading
+      </template>
+    </Suspense>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import HelloWorld from './HelloWorld.vue';
 
-export default defineComponent({
+export default {
   name: 'App',
   components: {
     HelloWorld
   }
-});
+};
 </script>
