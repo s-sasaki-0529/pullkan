@@ -5,16 +5,19 @@
         <img width="32" :src="avatarUrl" />
         {{ title }}
       </h3>
+      <p v-if="isReviewed">レビューしたよ！！！</p>
     </a>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { PR } from "../lib/pr";
+import { User } from "../lib/user";
 
 type Props = {
-  pr: PR
+  pr: PR,
+  currentUser: User // TODO グローバルにする
 }
 
 export default defineComponent({
@@ -22,13 +25,20 @@ export default defineComponent({
     pr: {
       type: PR,
       required: true
+    },
+    currentUser: {
+      type: User,
+      required: true
     }
   },
   setup(props) {
+    const isReviewed = computed(() => props.pr.reviewedBy(props.currentUser))
+
     return {
       url: props.pr.url,
       title: props.pr.title,
-      avatarUrl: props.pr.author.avatarUrl
+      avatarUrl: props.pr.author.avatarUrl,
+      isReviewed
     }
   }
 })

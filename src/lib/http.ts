@@ -12,7 +12,7 @@ function callAPI() {
       avatarUrl
     }
     repository(owner: "${organization}", name: "${repoName}") {
-      pullRequests(last: 99, states: [OPEN]) {
+      pullRequests(last: 100, states: [CLOSED]) {
         edges {
           node {
             id

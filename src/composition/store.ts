@@ -31,6 +31,7 @@ export function Store(_pullRequests: PR[], _currentUser: User) {
   });
 
   return {
+    currentUser: state.currentUser,
     ownPullRequests,
     assignedPullRequests,
   };

@@ -10,4 +10,11 @@ export class PR {
     public requestedReviewers: User[],
     public reviews: Review[]
   ) {}
+
+  /**
+   * 特定ユーザがレビュー済みかどうか
+   */
+  reviewedBy(user: User): Boolean {
+    return this.reviews.some((review) => review.user.id === user.id);
+  }
 }
