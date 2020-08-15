@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { Review } from "./review";
+import { ReviewList } from "./reviewList";
 
 export class PR {
   constructor(
@@ -8,13 +9,13 @@ export class PR {
     public url: string,
     public author: User,
     public requestedReviewers: User[],
-    public reviews: Review[]
+    public reviewList: ReviewList
   ) {}
 
   /**
    * 特定ユーザがレビュー済みかどうか
    */
   reviewedBy(user: User): Boolean {
-    return this.reviews.some((review) => review.user.id === user.id);
+    return this.reviewList.byUser(user).length > 0;
   }
 }

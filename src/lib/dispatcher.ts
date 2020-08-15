@@ -1,6 +1,7 @@
 import { callAPI } from "./http";
 import { User } from "./user";
 import { Review } from "./review";
+import { ReviewList } from "./reviewList";
 import { PR } from "./pr";
 import { Store } from "../composition/store";
 
@@ -31,16 +32,18 @@ async function dispatch() {
         const reviewer = e.node.requestedReviewer;
         return new User(reviewer.id, reviewer.login, reviewer.avatarUrl);
       }),
-      node.reviews.edges.map((e: any) => {
-        return new Review(
-          new User(
-            e.node.author.id,
-            e.node.author.login,
-            e.node.author.avatarUrl
-          ),
-          e.node.state
-        );
-      })
+      new ReviewList(
+        node.reviews.edges.map((e: any) => {
+          return new Review(
+            new User(
+              e.node.author.id,
+              e.node.author.login,
+              e.node.author.avatarUrl
+            ),
+            e.node.state
+          );
+        })
+      )
     );
   });
   return Store(pullRequests, currentUser);
