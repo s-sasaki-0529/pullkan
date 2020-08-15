@@ -13,8 +13,13 @@ export function Store(_pullRequests: PR[], _currentUser: User) {
     currentUser: _currentUser,
   });
 
+  const ownPullRequests = computed(() => {
+    return state.pullRequests.filter((pr) => {
+      return pr.author.id === state.currentUser.id;
+    });
+  });
+
   return {
-    pullRequests: state.pullRequests,
-    currentUser: state.currentUser,
+    ownPullRequests,
   };
 }

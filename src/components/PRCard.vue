@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 import { PR } from "../lib/pr";
 
 type Props = {
@@ -25,14 +25,10 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const url = computed(() => props.pr.url)
-    const title = computed(() => props.pr.title)
-    const avatarUrl = computed(() => props.pr.author.avatarUrl)
-
     return {
-      url,
-      title,
-      avatarUrl
+      url: props.pr.url,
+      title: props.pr.title,
+      avatarUrl: props.pr.author.avatarUrl
     }
   }
 })
