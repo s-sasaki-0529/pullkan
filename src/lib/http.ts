@@ -2,8 +2,8 @@ import axios from "axios";
 
 function callAPI() {
   const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN; // いずれ画面から設定できるように
-  const organization = "StudistCorporation";
-  const repoName = "teachme_web_duvel";
+  const organization = "Sa2Knight";
+  const repoName = "pullkan";
   const query = `
   {
     viewer {
