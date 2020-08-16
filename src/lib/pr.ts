@@ -14,13 +14,6 @@ export class PR {
   ) {}
 
   /**
-   * 最終コミット時よりも古いレビューを除外する
-   */
-  removeOldReviews() {
-    this.reviewList = this.reviewList.byDateFrom(this.lastCommitDate);
-  }
-
-  /**
    * 特定ユーザがレビュー済みかどうか
    */
   reviewedBy(user: User): Boolean {
@@ -36,7 +29,7 @@ export class PR {
   calcApprovedCount(): Number {
     const approvedUserIds: String[] = [];
 
-    this.reviewList.reviews.forEach(review => {
+    this.reviewList.reviews.forEach((review) => {
       if (review.state === "APPROVED") {
         approvedUserIds.push(review.user.id);
       } else if (

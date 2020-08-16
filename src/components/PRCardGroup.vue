@@ -2,7 +2,7 @@
   <div class="card-group g-full-height">
     <div class="title is-5">
       <div class="tag is-danger is-light is-rounded">
-        {{ props.badgeNumber }}
+        {{ props.pullRequests.length }}
       </div>
       {{ props.title }}
     </div>
@@ -20,7 +20,6 @@ import PRCard from "./PRCard.vue";
 
 export default defineComponent({
   props: {
-    badgeNumber: Number,
     title: String,
     pullRequests: {
       type: Array as PropType<PR[]>,

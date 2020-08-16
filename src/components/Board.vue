@@ -1,33 +1,29 @@
 <template>
   <div class="columns g-full-height">
     <div class="column is-3 g-full-height">
-      <CardGroup
+      <PRCardGroup
         title="Requested"
-        :badgeNumber="1"
         :pullRequests="ownPullRequests"
         :currentUser="currentUser"
       />
     </div>
     <div class="column is-3 g-full-height">
-      <CardGroup
+      <PRCardGroup
         title="Reviewed"
-        :badgeNumber="2"
         :pullRequests="ownPullRequests"
         :currentUser="currentUser"
       />
     </div>
     <div class="column is-3 g-full-height">
-      <CardGroup
-        title="Pending"
-        :badgeNumber="3"
+      <PRCardGroup
+        title="Approved"
         :pullRequests="ownPullRequests"
         :currentUser="currentUser"
       />
     </div>
     <div class="column is-3 g-full-height">
-      <CardGroup
+      <PRCardGroup
         title="Own"
-        :badgeNumber="10"
         :pullRequests="ownPullRequests"
         :currentUser="currentUser"
       />
@@ -38,11 +34,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { dispatch } from "../lib/dispatcher";
-import CardGroup from "./CardGroup.vue";
+import PRCardGroup from "./PRCardGroup.vue";
 
 export default defineComponent({
   components: {
-    CardGroup,
+    PRCardGroup,
   },
   async setup() {
     const store = await dispatch();
