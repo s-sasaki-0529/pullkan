@@ -14,4 +14,11 @@ export class ReviewList {
   byUser(user: User) {
     return new ReviewList(this.reviews.filter((r) => r.user.id === user.id));
   }
+
+  /**
+   * 指定日時以降のレビューのみ絞り込む
+   */
+  byDateFrom(date: Date) {
+    return new ReviewList(this.reviews.filter((r) => r.createdAt >= date));
+  }
 }

@@ -41,7 +41,8 @@ async function dispatch() {
               e.node.author.login,
               e.node.author.avatarUrl
             ),
-            e.node.state
+            e.node.state,
+            new Date(e.node.createdAt)
           );
         })
       )

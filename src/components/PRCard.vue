@@ -5,9 +5,11 @@
         <img width="32" :src="avatarUrl" />
         {{ title }}
       </h3>
-      <p>last commited data: {{lastCommitDate}} </p>
-      <p v-if="isReviewed">レビューしたよ！！！</p>
     </a>
+    <p>{{ lastCommitDate }}</p>
+    <p>
+      {{ reviews.map(r => r.createdAt) }}
+    </p>
   </div>
 </template>
 
@@ -33,14 +35,12 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const isReviewed = computed(() => props.pr.reviewedBy(props.currentUser))
-
     return {
       url: props.pr.url,
       title: props.pr.title,
       lastCommitDate: props.pr.lastCommitDate,
       avatarUrl: props.pr.author.avatarUrl,
-      isReviewed
+      reviews: props.pr.reviewList.reviews
     }
   }
 })

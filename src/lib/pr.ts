@@ -11,7 +11,16 @@ export class PR {
     public lastCommitDate: Date,
     public requestedReviewers: User[],
     public reviewList: ReviewList
-  ) {}
+  ) {
+    this.removeOldReviews();
+  }
+
+  /**
+   * 最終コミット時よりも古いレビューを除外する
+   */
+  removeOldReviews() {
+    this.reviewList = this.reviewList.byDateFrom(this.lastCommitDate);
+  }
 
   /**
    * 特定ユーザがレビュー済みかどうか
