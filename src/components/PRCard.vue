@@ -68,10 +68,7 @@ export default defineComponent({
   .card-content {
     .title {
       height: 40px;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
+      overflow: scroll;
     }
   }
 }

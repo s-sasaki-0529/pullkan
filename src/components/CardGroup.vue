@@ -6,30 +6,33 @@
       </div>
       {{ props.title }}
     </div>
+    <div class="pr-card-wrapper" :key="pr.id" v-for="pr in props.pullRequests">
+      <PRCard :pr="pr" :currentUser="props.currentUser" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-
-type Props = {
-  badgeNumber: Number;
-  title: String;
-};
+import { defineComponent, PropType } from "vue";
+import { PR } from "../lib/pr";
+import { User } from "../lib/user";
+import PRCard from "./PRCard.vue";
 
 export default defineComponent({
   props: {
-    badgeNumber: {
-      type: Number,
-      required: true,
+    badgeNumber: Number,
+    title: String,
+    pullRequests: {
+      type: Array as PropType<PR[]>,
     },
-    title: {
-      type: String,
-      required: true,
+    currentUser: {
+      type: Object as PropType<User>,
     },
   },
-
-  setup(props: Props) {
+  components: {
+    PRCard,
+  },
+  setup(props) {
     return { props };
   },
 });
@@ -45,6 +48,10 @@ export default defineComponent({
 
   .title {
     padding: 10px;
+  }
+
+  .pr-card-wrapper {
+    padding: 15px;
   }
 }
 </style>

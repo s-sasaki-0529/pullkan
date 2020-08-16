@@ -1,16 +1,36 @@
 <template>
   <div class="columns g-full-height">
     <div class="column is-3 g-full-height">
-      <CardGroup title="Requested" badgeNumber="1" />
+      <CardGroup
+        title="Requested"
+        :badgeNumber="1"
+        :pullRequests="ownPullRequests"
+        :currentUser="currentUser"
+      />
     </div>
     <div class="column is-3 g-full-height">
-      <CardGroup title="Reviewed" badgeNumber="1" />
+      <CardGroup
+        title="Reviewed"
+        :badgeNumber="2"
+        :pullRequests="ownPullRequests"
+        :currentUser="currentUser"
+      />
     </div>
     <div class="column is-3 g-full-height">
-      <CardGroup title="Muted" badgeNumber="1" />
+      <CardGroup
+        title="Muted"
+        :badgeNumber="3"
+        :pullRequests="ownPullRequests"
+        :currentUser="currentUser"
+      />
     </div>
     <div class="column is-3 g-full-height">
-      <CardGroup title="Own" badgeNumber="1" />
+      <CardGroup
+        title="Own"
+        :badgeNumber="10"
+        :pullRequests="ownPullRequests"
+        :currentUser="currentUser"
+      />
     </div>
   </div>
 </template>
