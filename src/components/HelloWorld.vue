@@ -1,12 +1,8 @@
 <template>
-  <h1>あなたのPR</h1>
-  <div class="pr-card-wrapper" :key="pr.id" v-for="pr in ownPullRequests">
-    <PRCard :pr="pr" :currentUser="currentUser" />
-  </div>
-  <hr />
-  <h1>レビュー依頼のあるPR</h1>
-  <div class="pr-card-wrapper" :key="pr.id" v-for="pr in assignedPullRequests">
-    <PRCard :pr="pr" :currentUser="currentUser" />
+  <div class="columns">
+    <div class="column is-3" :key="pr.id" v-for="pr in assignedPullRequests">
+      <PRCard :pr="pr" :currentUser="currentUser" />
+    </div>
   </div>
 </template>
 
