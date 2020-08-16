@@ -6,6 +6,7 @@
         {{ title }}
       </h3>
     </a>
+    <p>approved: {{ approvedCount }}</p>
   </div>
 </template>
 
@@ -34,9 +35,8 @@ export default defineComponent({
     return {
       url: props.pr.url,
       title: props.pr.title,
-      lastCommitDate: props.pr.lastCommitDate,
       avatarUrl: props.pr.author.avatarUrl,
-      reviews: props.pr.reviewList.reviews
+      approvedCount: props.pr.calcApprovedCount()
     }
   }
 })

@@ -1,5 +1,6 @@
 import { Review } from "./review";
 import { User } from "./user";
+import { REVIEW_STATUS } from "./constants";
 
 export class ReviewList {
   public length: Number;
@@ -13,6 +14,13 @@ export class ReviewList {
    */
   byUser(user: User) {
     return new ReviewList(this.reviews.filter((r) => r.user.id === user.id));
+  }
+
+  /**
+   * ステータスで絞り込む
+   */
+  byState(state: REVIEW_STATUS) {
+    return new ReviewList(this.reviews.filter((r) => r.state === state));
   }
 
   /**
