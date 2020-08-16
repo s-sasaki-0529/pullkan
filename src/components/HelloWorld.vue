@@ -8,20 +8,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { dispatch } from "../lib/dispatcher"
-import PRCard from './PRCard.vue'
+import { dispatch } from "../lib/dispatcher";
+import PRCard from "./PRCard.vue";
 
 export default defineComponent({
   components: {
-    PRCard
+    PRCard,
   },
   async setup() {
-    const store = await dispatch()
+    const store = await dispatch();
     return {
       currentUser: store.currentUser,
       ownPullRequests: store.ownPullRequests.value,
-      assignedPullRequests: store.assignedPullRequests.value
-    }
-  }
-})
+      assignedPullRequests: store.assignedPullRequests.value,
+    };
+  },
+});
 </script>

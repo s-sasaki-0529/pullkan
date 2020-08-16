@@ -31,30 +31,30 @@ import { PR } from "../lib/pr";
 import { User } from "../lib/user";
 
 type Props = {
-  pr: PR,
-  currentUser: User // TODO グローバルにする
-}
+  pr: PR;
+  currentUser: User; // TODO グローバルにする
+};
 
 export default defineComponent({
   props: {
     pr: {
       type: PR,
-      required: true
+      required: true,
     },
     currentUser: {
       type: User,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     return {
       url: props.pr.url,
       title: props.pr.title,
       avatarUrl: props.pr.author.avatarUrl,
-      approvedCount: props.pr.calcApprovedCount()
-    }
-  }
-})
+      approvedCount: props.pr.calcApprovedCount(),
+    };
+  },
+});
 </script>
 
 <style lang="scss">

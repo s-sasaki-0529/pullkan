@@ -73,13 +73,13 @@ function callAPI() {
     url: "https://api.github.com/graphql",
     headers: {
       Authorization: `bearer ${accessToken}`,
-      Accept: "application/vnd.github.v4.idl",
+      Accept: "application/vnd.github.v4.idl"
     },
     method: "POST",
     data: {
-      query,
-    },
-  }).then((res) => res.data);
+      query
+    }
+  }).then(res => res.data);
 }
 
 export { callAPI };

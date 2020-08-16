@@ -36,7 +36,7 @@ export class PR {
   calcApprovedCount(): Number {
     const approvedUserIds: String[] = [];
 
-    this.reviewList.reviews.forEach((review) => {
+    this.reviewList.reviews.forEach(review => {
       if (review.state === "APPROVED") {
         approvedUserIds.push(review.user.id);
       } else if (
