@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column is-3" :key="pr.id" v-for="pr in assignedPullRequests">
+    <div class="column is-3" :key="pr.id" v-for="pr in ownPullRequests">
       <PRCard :pr="pr" :currentUser="currentUser" />
     </div>
   </div>

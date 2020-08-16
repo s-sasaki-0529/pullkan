@@ -3,7 +3,7 @@
     <header class="card-header">
       <div class="media">
         <div class="media-left">
-          <figure class="image is-48x48">
+          <figure class="image is-32x32">
             <img class="is-rounded" :src="avatarUrl" />
           </figure>
         </div>
@@ -14,7 +14,7 @@
     </header>
     <div class="card-content">
       <div class="content">
-        <p class="title is-5">{{ title }}</p>
+        <p class="title is-6">{{ title }}</p>
         <p>approved: {{ approvedCount }}</p>
       </div>
     </div>
@@ -67,7 +67,7 @@ export default defineComponent({
   }
   .card-content {
     .title {
-      height: 65px;
+      height: 40px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
