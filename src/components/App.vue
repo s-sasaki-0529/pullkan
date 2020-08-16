@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div class="app">
     <Suspense>
       <template #default>
-        <HelloWorld />
+        <Board />
       </template>
       <template #fallback>
         ...loading
@@ -12,16 +12,22 @@
 </template>
 
 <script lang="ts">
-import HelloWorld from "./HelloWorld.vue";
+import Board from "./Board.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    Board,
   },
 };
 </script>
 
 <style lang="scss">
 @import "../../node_modules/bulma/bulma.sass";
+.app {
+  height: 100vh;
+  .g-full-height {
+    height: 100%;
+  }
+}
 </style>
