@@ -28,6 +28,7 @@ async function dispatch() {
         node.author.login || "no-user",
         node.author.avatarUrl || ""
       ),
+      new Date(node.commits.nodes[0].commit.committedDate),
       node.reviewRequests.edges.map((e: any) => {
         const reviewer = e.node.requestedReviewer;
         return new User(reviewer.id, reviewer.login, reviewer.avatarUrl);

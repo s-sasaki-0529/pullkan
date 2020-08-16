@@ -5,6 +5,7 @@
         <img width="32" :src="avatarUrl" />
         {{ title }}
       </h3>
+      <p>last commited data: {{lastCommitDate}} </p>
       <p v-if="isReviewed">レビューしたよ！！！</p>
     </a>
   </div>
@@ -37,6 +38,7 @@ export default defineComponent({
     return {
       url: props.pr.url,
       title: props.pr.title,
+      lastCommitDate: props.pr.lastCommitDate,
       avatarUrl: props.pr.author.avatarUrl,
       isReviewed
     }

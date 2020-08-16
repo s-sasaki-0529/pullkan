@@ -8,6 +8,7 @@ export class PR {
     public title: string,
     public url: string,
     public author: User,
+    public lastCommitDate: Date,
     public requestedReviewers: User[],
     public reviewList: ReviewList
   ) {}

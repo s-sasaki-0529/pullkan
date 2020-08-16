@@ -12,7 +12,7 @@ function callAPI() {
       avatarUrl
     }
     repository(owner: "${organization}", name: "${repoName}") {
-      pullRequests(last: 100, states: [CLOSED]) {
+      pullRequests(last: 100, states: [MERGED]) {
         edges {
           node {
             id
@@ -42,6 +42,9 @@ function callAPI() {
             reviews(first: 99) {
               edges {
                 node {
+                  state
+                  id
+                  createdAt
                   author {
                     ... on User {
                       id
@@ -49,8 +52,13 @@ function callAPI() {
                       login
                     }
                   }
-                  state
-                  id
+                }
+              }
+            }
+            commits(last: 1) {
+              nodes {
+                commit {
+                  committedDate
                 }
               }
             }
