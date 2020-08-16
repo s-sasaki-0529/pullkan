@@ -1,6 +1,7 @@
 import { User } from "./user";
 import { Review } from "./review";
 import { ReviewList } from "./reviewList";
+import { REVIEW_STATUS } from "./constants";
 
 export class PR {
   constructor(
@@ -14,10 +15,31 @@ export class PR {
   ) {}
 
   /**
-   * 特定ユーザがレビュー済みかどうか
+   * ユーザが対象PRに最終的に出したステータス
+   * NOTE: レビューリクエストがある場合は常にnullでしょ
    */
-  reviewedBy(user: User): Boolean {
-    return this.reviewList.byUser(user).length > 0;
+  latestReviewStatus(user: User): REVIEW_STATUS | null {
+    // 対象ユーザのレビュー結果のみ抽出
+    const reviewList = this.reviewList.byUser(user);
+    const stateList = reviewList.reviews.map((r) => r.state);
+    const lastApprovedIndex = stateList.lastIndexOf("APPROVED");
+    const lastChangeRequestIndex = stateList.lastIndexOf("CHANGES_REQUESTED");
+
+    // approveもrequestChangeもしている場合はあと勝ち
+    if (lastApprovedIndex >= 0 && lastChangeRequestIndex >= 0) {
+      return lastApprovedIndex > lastChangeRequestIndex
+        ? "APPROVED"
+        : "CHANGES_REQUESTED";
+    }
+    // approveのみ、requestChangeのみしている場合はそれを戻す
+    if (lastApprovedIndex >= 0) {
+      return "APPROVED";
+    }
+    if (lastChangeRequestIndex >= 0) {
+      return "CHANGES_REQUESTED";
+    }
+    // どちらもなければ最終ステータスかNULLが戻る
+    return reviewList.last()?.state || null;
   }
 
   /**
