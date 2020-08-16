@@ -18,7 +18,7 @@
     </div>
     <div class="column is-3 g-full-height">
       <CardGroup
-        title="Muted"
+        title="Pending"
         :badgeNumber="3"
         :pullRequests="ownPullRequests"
         :currentUser="currentUser"

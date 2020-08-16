@@ -14,14 +14,10 @@
     </header>
     <div class="card-content">
       <div class="content">
-        <p class="title is-6">{{ title }}</p>
+        <a :href="url" target="_blank" class="title is-6">{{ title }}</a>
         <p>approved: {{ approvedCount }}</p>
       </div>
     </div>
-    <footer class="card-footer">
-      <a :href="url" target="_blank" class="card-footer-item">Open</a>
-      <a href="#" class="card-footer-item">Mute</a>
-    </footer>
   </div>
 </template>
 
