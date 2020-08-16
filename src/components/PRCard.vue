@@ -6,10 +6,6 @@
         {{ title }}
       </h3>
     </a>
-    <p>{{ lastCommitDate }}</p>
-    <p>
-      {{ reviews.map(r => r.createdAt) }}
-    </p>
   </div>
 </template>
 
