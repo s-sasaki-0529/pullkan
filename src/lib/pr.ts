@@ -15,31 +15,10 @@ export class PR {
   ) {}
 
   /**
-   * ユーザが対象PRに最終的に出したステータス
-   * NOTE: レビューリクエストがある場合は常にnullでしょ
+   * 指定したユーザがPRの所有者であるか
    */
-  latestReviewStatus(user: User): REVIEW_STATUS | null {
-    // 対象ユーザのレビュー結果のみ抽出
-    const reviewList = this.reviewList.byUser(user);
-    const stateList = reviewList.reviews.map((r) => r.state);
-    const lastApprovedIndex = stateList.lastIndexOf("APPROVED");
-    const lastChangeRequestIndex = stateList.lastIndexOf("CHANGES_REQUESTED");
-
-    // approveもrequestChangeもしている場合はあと勝ち
-    if (lastApprovedIndex >= 0 && lastChangeRequestIndex >= 0) {
-      return lastApprovedIndex > lastChangeRequestIndex
-        ? "APPROVED"
-        : "CHANGES_REQUESTED";
-    }
-    // approveのみ、requestChangeのみしている場合はそれを戻す
-    if (lastApprovedIndex >= 0) {
-      return "APPROVED";
-    }
-    if (lastChangeRequestIndex >= 0) {
-      return "CHANGES_REQUESTED";
-    }
-    // どちらもなければ最終ステータスかNULLが戻る
-    return reviewList.last()?.state || null;
+  isOwnedBy(user: User) {
+    return this.author.id === user.id;
   }
 
   /**

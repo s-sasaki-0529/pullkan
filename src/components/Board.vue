@@ -3,28 +3,28 @@
     <div class="column is-3 g-full-height">
       <PRCardGroup
         title="Requested"
-        :pullRequests="ownPullRequests"
+        :pullRequests="requestedPRs"
         :currentUser="currentUser"
       />
     </div>
     <div class="column is-3 g-full-height">
       <PRCardGroup
-        title="Reviewed"
-        :pullRequests="ownPullRequests"
+        title="In review"
+        :pullRequests="inReviewPRs"
         :currentUser="currentUser"
       />
     </div>
     <div class="column is-3 g-full-height">
       <PRCardGroup
         title="Approved"
-        :pullRequests="ownPullRequests"
+        :pullRequests="approvedPRs"
         :currentUser="currentUser"
       />
     </div>
     <div class="column is-3 g-full-height">
       <PRCardGroup
         title="Own"
-        :pullRequests="ownPullRequests"
+        :pullRequests="ownPRs"
         :currentUser="currentUser"
       />
     </div>
@@ -44,8 +44,10 @@ export default defineComponent({
     const store = await dispatch();
     return {
       currentUser: store.currentUser,
-      ownPullRequests: store.ownPullRequests.value,
-      assignedPullRequests: store.assignedPullRequests.value,
+      ownPRs: store.ownPRs.value,
+      requestedPRs: store.requestedPRs.value,
+      inReviewPRs: store.inReviewPRs.value,
+      approvedPRs: store.approvedPRs.value
     };
   },
 });
