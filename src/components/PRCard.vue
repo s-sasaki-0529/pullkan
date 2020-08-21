@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { PR } from "../lib/pr";
 import { User } from "../lib/user";
 
@@ -58,11 +58,11 @@ export default defineComponent({
   },
   setup(props) {
     return {
-      url: props.pr.url,
-      title: props.pr.title,
-      avatarUrl: props.pr.author.avatarUrl,
-      labels: props.pr.labels,
-      approvedCount: props.pr.calcApprovedCount(),
+      url: computed(() => props.pr.url),
+      title: computed(() => props.pr.title),
+      avatarUrl: computed(() => props.pr.author.avatarUrl),
+      labels: computed(() => props.pr.labels),
+      approvedCount: computed(() => props.pr.calcApprovedCount()),
     };
   },
 });
