@@ -8,13 +8,18 @@
           </figure>
         </div>
         <div class="media-content">
-          <p class="title is-6">{{ pr.author.name }}</p>
+          <span class="title is-6">{{ pr.author.name }}</span>
         </div>
       </div>
     </header>
     <div class="card-content">
-      <div class="content">
-        <a :href="url" target="_blank" class="title is-6">{{ title }}</a>
+      <a :href="url" target="_blanl" class="content">
+        <div class="title is-6">
+          <span>{{ title }}</span>
+          <div class="checks">
+            <span class="check" :key="i" v-for="i in approvedCount">✔</span>
+          </div>
+        </div>
         <div v-if="labels" class="tags">
           <span
             :key="label.name"
@@ -25,7 +30,7 @@
             {{ label.name }}
           </span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
@@ -73,8 +78,15 @@ export default defineComponent({
   }
   .card-content {
     .title {
-      height: 40px;
+      margin: 0;
       overflow: scroll;
+    }
+    .checks {
+      display: inline;
+      padding-left: 10px;
+      .check {
+        color: green;
+      }
     }
     .tags {
       padding-top: 15px;
