@@ -44,9 +44,11 @@ export default defineComponent({
   background-color: $light;
   border-radius: 2%;
   min-height: "100%";
+  overflow: scroll;
 
   .title {
     padding: 10px;
+    margin: 0;
   }
 
   .pr-card-wrapper {
