@@ -1,7 +1,6 @@
 import { User } from "./user";
-import { Review } from "./review";
+import { Label } from "./label";
 import { ReviewList } from "./reviewList";
-import { REVIEW_STATUS } from "./constants";
 
 export class PR {
   constructor(
@@ -10,6 +9,7 @@ export class PR {
     public url: string,
     public author: User,
     public lastCommitDate: Date,
+    public labels: Label[],
     public requestedReviewers: User[],
     public reviewList: ReviewList
   ) {}

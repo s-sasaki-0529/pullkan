@@ -4,6 +4,7 @@ import { Review } from "./review";
 import { ReviewList } from "./reviewList";
 import { PR } from "./pr";
 import { Store } from "../composition/store";
+import { Label } from "./label";
 
 async function dispatch() {
   const apiResponse = await callAPI();
@@ -29,6 +30,9 @@ async function dispatch() {
         node.author.avatarUrl || ""
       ),
       new Date(node.commits.nodes[0].commit.committedDate),
+      node.labels.nodes.map((l: any) => {
+        return new Label(l.name, l.color);
+      }),
       node.reviewRequests.edges.map((e: any) => {
         const reviewer = e.node.requestedReviewer;
         return new User(reviewer.id, reviewer.login, reviewer.avatarUrl);

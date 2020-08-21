@@ -15,7 +15,16 @@
     <div class="card-content">
       <div class="content">
         <a :href="url" target="_blank" class="title is-6">{{ title }}</a>
-        <p>approved: {{ approvedCount }}</p>
+        <div v-if="labels" class="tags">
+          <span
+            :key="label.name"
+            class="tag"
+            :style="{ backgroundColor: `#${label.color}` }"
+            v-for="label in labels"
+          >
+            {{ label.name }}
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -47,6 +56,7 @@ export default defineComponent({
       url: props.pr.url,
       title: props.pr.title,
       avatarUrl: props.pr.author.avatarUrl,
+      labels: props.pr.labels,
       approvedCount: props.pr.calcApprovedCount(),
     };
   },
@@ -65,6 +75,9 @@ export default defineComponent({
     .title {
       height: 40px;
       overflow: scroll;
+    }
+    .tags {
+      padding-top: 15px;
     }
   }
 }
