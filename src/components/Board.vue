@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, onMounted } from "vue";
+import { reactive, defineComponent, onMounted, onUnmounted } from "vue";
 import { dispatch } from "../lib/dispatcher";
 import PRCardGroup from "./PRCardGroup.vue";
 import { User } from "@/lib/user";
@@ -64,6 +64,7 @@ export default defineComponent({
   setup() {
     const state = reactive({
       onLoading: false,
+      timerId: 0,
       currentUser: null as User | null,
       pullRequests: {
         own: [] as PR[],
@@ -93,6 +94,11 @@ export default defineComponent({
 
     onMounted(() => {
       update();
+      state.timerId = setInterval(() => update(), 5 * 60 * 1000);
+    });
+
+    onUnmounted(() => {
+      clearInterval(state.timerId);
     });
 
     return {
