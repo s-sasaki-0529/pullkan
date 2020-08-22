@@ -28,22 +28,19 @@ export class PR {
    * FIXME: PR主がコミットを追加せずに再レビュー依頼すると壊れる
    */
   calcApprovedCount(): Number {
-    const approvedUserIds: String[] = [];
+    const approvedUserIds = new Set<string>();
 
     this.reviewList.reviews.forEach((review) => {
       if (review.state === "APPROVED") {
-        approvedUserIds.push(review.user.id);
+        approvedUserIds.add(review.user.id);
       } else if (
         review.state === "DISMISSED" ||
         review.state === "CHANGES_REQUESTED"
       ) {
-        const index = approvedUserIds.indexOf(review.user.id);
-        if (index >= 0) {
-          approvedUserIds.splice(index, 1);
-        }
+        approvedUserIds.delete(review.user.id);
       }
     });
 
-    return approvedUserIds.length;
+    return approvedUserIds.size;
   }
 }
