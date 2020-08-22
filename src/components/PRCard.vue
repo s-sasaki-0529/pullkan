@@ -74,6 +74,9 @@ export default defineComponent({
     padding: 15px;
     .media {
       align-items: center;
+      .image {
+        margin: 0;
+      }
     }
   }
   .card-content {
