@@ -4,14 +4,14 @@
       <h1 class="repository">
         <a href="https://github.com/Sa2Knight" target="_blank">Sa2Knight</a>
         /
-        <a href="https://github.com/Sa2Knight/PullKan" target="_blank"
-          >PullKan</a
-        >
+        <a href="https://github.com/Sa2Knight/PullKan" target="_blank">
+          PullKan
+        </a>
       </h1>
-      <span class="icon update-icon">
+      <span class="icon" :class="{ loading: state.onLoading }" @click="update">
         <i class="fas fa-sync"></i>
       </span>
-      <span class="icon config-icon">
+      <span class="icon" @click="showConfigModal">
         <i class="fas fa-cog"></i>
       </span>
     </header>
@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from "vue";
+import { reactive, defineComponent, onMounted } from "vue";
 import { dispatch } from "../lib/dispatcher";
 import PRCardGroup from "./PRCardGroup.vue";
 import { User } from "@/lib/user";
@@ -63,7 +63,7 @@ export default defineComponent({
   },
   setup() {
     const state = reactive({
-      now: 0,
+      onLoading: false,
       currentUser: null as User | null,
       pullRequests: {
         own: [] as PR[],
@@ -73,19 +73,32 @@ export default defineComponent({
       },
     });
 
-    const update = () => {
-      dispatch().then((store) => {
-        state.now = state.now + 10;
-        state.currentUser = store.currentUser;
-        state.pullRequests = store.pullRequests;
-      });
-    };
+    function update() {
+      if (state.onLoading) return;
+      state.onLoading = true;
 
-    update();
+      dispatch()
+        .then((store) => {
+          state.currentUser = store.currentUser;
+          state.pullRequests = store.pullRequests;
+        })
+        .finally(() => {
+          state.onLoading = false;
+        });
+    }
+
+    function showConfigModal() {
+      alert("未実装");
+    }
+
+    onMounted(() => {
+      update();
+    });
 
     return {
       state,
       update,
+      showConfigModal,
     };
   },
 });
@@ -104,7 +117,7 @@ export default defineComponent({
     margin-left: 5px;
     cursor: pointer;
 
-    &.load {
+    &.loading {
       animation: spin 1s linear infinite;
     }
   }
