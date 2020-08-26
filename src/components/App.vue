@@ -1,13 +1,6 @@
 <template>
   <div class="app">
-    <Suspense>
-      <template #default>
-        <Board />
-      </template>
-      <template #fallback>
-        ...loading
-      </template>
-    </Suspense>
+    <Board />
   </div>
 </template>
 
