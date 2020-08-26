@@ -2,12 +2,12 @@
   <div class="card-group g-full-height">
     <div class="title is-5">
       <div class="tag is-danger is-light is-rounded">
-        {{ props.pullRequests.length }}
+        {{ pullRequests.length }}
       </div>
-      {{ props.title }}
+      {{ title }}
     </div>
-    <div class="pr-card-wrapper" :key="pr.id" v-for="pr in props.pullRequests">
-      <PRCard :pr="pr" :currentUser="props.currentUser" />
+    <div class="pr-card-wrapper" :key="pr.id" v-for="pr in pullRequests">
+      <PRCard :pr="pr" :currentUser="currentUser" />
     </div>
   </div>
 </template>
@@ -30,10 +30,7 @@ export default defineComponent({
   },
   components: {
     PRCard,
-  },
-  setup(props) {
-    return { props };
-  },
+  }
 });
 </script>
 
