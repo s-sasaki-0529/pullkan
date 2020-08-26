@@ -7,7 +7,7 @@
       {{ title }}
     </div>
     <div class="pr-card-wrapper" :key="pr.id" v-for="pr in pullRequests">
-      <PRCard :pr="pr" :currentUser="currentUser" />
+      <PRCard :pr="pr" />
     </div>
   </div>
 </template>
@@ -15,7 +15,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { PR } from "../lib/pr";
-import { User } from "../lib/user";
 import PRCard from "./PRCard.vue";
 
 export default defineComponent({
@@ -23,10 +22,7 @@ export default defineComponent({
     title: String,
     pullRequests: {
       type: Array as PropType<PR[]>,
-    },
-    currentUser: {
-      type: Object as PropType<User>,
-    },
+    }
   },
   components: {
     PRCard,

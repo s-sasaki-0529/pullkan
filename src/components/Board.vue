@@ -21,28 +21,24 @@
           <PRCardGroup
             title="Requested"
             :pullRequests="state.pullRequests.requested"
-            :currentUser="state.currentUser"
           />
         </div>
         <div class="column is-3 g-full-height">
           <PRCardGroup
             title="In review"
             :pullRequests="state.pullRequests.inReview"
-            :currentUser="state.currentUser"
           />
         </div>
         <div class="column is-3 g-full-height">
           <PRCardGroup
             title="Approved"
             :pullRequests="state.pullRequests.approved"
-            :currentUser="state.currentUser"
           />
         </div>
         <div class="column is-3 g-full-height">
           <PRCardGroup
             title="Own"
             :pullRequests="state.pullRequests.own"
-            :currentUser="state.currentUser"
           />
         </div>
       </div>

@@ -4,7 +4,7 @@
       <div class="media">
         <div class="media-left">
           <figure class="image is-32x32">
-            <img class="is-rounded" :src="avatarUrl" />
+            <img class="is-rounded" :src="pr.author.avatarUrl" />
           </figure>
         </div>
         <div class="media-content">
@@ -13,19 +13,19 @@
       </div>
     </header>
     <div class="card-content">
-      <a :href="url" target="_blanl" class="content">
+      <a :href="pr.url" target="_blanl" class="content">
         <div class="title is-6">
-          <span>{{ title }}</span>
+          <span>{{ pr.title }}</span>
           <div class="checks">
             <span class="check" :key="i" v-for="i in approvedCount">✔</span>
           </div>
         </div>
-        <div v-if="labels" class="tags">
+        <div v-if="pr.labels" class="tags">
           <span
             :key="label.name"
             class="tag"
             :style="{ backgroundColor: `#${label.color}` }"
-            v-for="label in labels"
+            v-for="label in pr.labels"
           >
             {{ label.name }}
           </span>
@@ -36,32 +36,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, PropType } from "vue";
 import { PR } from "../lib/pr";
-import { User } from "../lib/user";
-
-type Props = {
-  pr: PR;
-  currentUser: User; // TODO グローバルにする
-};
 
 export default defineComponent({
   props: {
     pr: {
-      type: PR,
+      type: Object as PropType<PR>,
       required: true,
-    },
-    currentUser: {
-      type: User,
-      required: true,
-    },
+    }
   },
   setup(props) {
     return {
-      url: computed(() => props.pr.url),
-      title: computed(() => props.pr.title),
-      avatarUrl: computed(() => props.pr.author.avatarUrl),
-      labels: computed(() => props.pr.labels),
       approvedCount: computed(() => props.pr.calcApprovedCount()),
     };
   },
