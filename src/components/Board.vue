@@ -36,10 +36,7 @@
           />
         </div>
         <div class="column is-3 g-full-height">
-          <PRCardGroup
-            title="Own"
-            :pullRequests="state.pullRequests.own"
-          />
+          <PRCardGroup title="Own" :pullRequests="state.pullRequests.own" />
         </div>
       </div>
     </div>
@@ -60,7 +57,6 @@ export default defineComponent({
   setup() {
     const state = reactive({
       onLoading: false,
-      timerId: 0,
       currentUser: null as User | null,
       pullRequests: {
         own: [] as PR[],
@@ -90,11 +86,7 @@ export default defineComponent({
 
     onMounted(() => {
       update();
-      state.timerId = setInterval(() => update(), 5 * 60 * 1000);
-    });
-
-    onUnmounted(() => {
-      clearInterval(state.timerId);
+      setInterval(() => update(), 5 * 60 * 1000);
     });
 
     return {
