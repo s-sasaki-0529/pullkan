@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, onMounted, onUnmounted } from "vue";
+import { reactive, defineComponent, onMounted } from "vue";
 import { dispatch } from "../lib/dispatcher";
 import PRCardGroup from "./PRCardGroup.vue";
 import { User } from "@/lib/user";
