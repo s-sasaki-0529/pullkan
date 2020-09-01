@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, onMounted } from "vue";
+import { reactive, defineComponent, onMounted, watch } from "vue";
 import { dispatch } from "../lib/dispatcher";
 import PRCardGroup from "./PRCardGroup.vue";
 import { User } from "@/lib/user";
@@ -88,6 +88,22 @@ export default defineComponent({
       update();
       setInterval(() => update(), 5 * 60 * 1000);
     });
+
+    watch(
+      () => state.pullRequests.requested,
+      (newPRs, oldPrs) => {
+        const oldPrIds = oldPrs.map((pr) => pr.id);
+        newPRs.forEach((newPR) => {
+          if (oldPrIds.indexOf(newPR.id) === -1) {
+            // TODO: 通知の仕組みは切り出すか
+            new Notification("レビュー依頼が届きました", {
+              body: newPR.title,
+              icon: newPR.author.avatarUrl,
+            });
+          }
+        });
+      }
+    );
 
     return {
       state,
