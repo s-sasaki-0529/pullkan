@@ -1,6 +1,6 @@
-import { Review } from "./review";
-import { User } from "./user";
-import { REVIEW_STATUS } from "./constants";
+import { Review } from "@/models/review";
+import { User } from "@/models/user";
+import { REVIEW_STATUS } from "@/lib/constants";
 
 export class ReviewList {
   public length: number;

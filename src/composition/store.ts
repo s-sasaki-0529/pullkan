@@ -1,6 +1,5 @@
-import { reactive, computed } from "vue";
-import { PR } from "@/lib/pr";
-import { User } from "@/lib/user";
+import { PR } from "@/models/pr";
+import { User } from "@/models/user";
 
 export function Store(pullRequests: PR[], currentUser: User) {
   const own = pullRequests.filter((pr) => {

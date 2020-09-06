@@ -1,10 +1,10 @@
-import { callAPI } from "./http";
-import { User } from "./user";
-import { Review } from "./review";
-import { ReviewList } from "./reviewList";
-import { PR } from "./pr";
-import { Store } from "../composition/store";
-import { Label } from "./label";
+import { callAPI } from "@/lib/http";
+import { User } from "@/models/user";
+import { Review } from "@/models/review";
+import { ReviewList } from "@/models/reviewList";
+import { PR } from "@/models/pr";
+import { Store } from "@/composition/store";
+import { Label } from "@/models/label";
 
 async function dispatch() {
   const apiResponse = await callAPI();

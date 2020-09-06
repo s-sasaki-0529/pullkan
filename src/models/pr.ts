@@ -1,6 +1,6 @@
-import { User } from "./user";
-import { Label } from "./label";
-import { ReviewList } from "./reviewList";
+import { User } from "@/models/user";
+import { Label } from "@/models/label";
+import { ReviewList } from "@/models/reviewList";
 
 export class PR {
   constructor(

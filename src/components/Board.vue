@@ -32,8 +32,8 @@
 import { reactive, defineComponent, onMounted, watch } from "vue";
 import { dispatch } from "../lib/dispatcher";
 import PRCardGroup from "./PRCardGroup.vue";
-import { User } from "@/lib/user";
-import { PR } from "@/lib/pr";
+import { User } from "@/models/user";
+import { PR } from "@/models/pr";
 
 export default defineComponent({
   components: {

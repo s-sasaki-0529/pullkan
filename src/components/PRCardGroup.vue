@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { PR } from "../lib/pr";
+import { PR } from "../models/pr";
 import PRCard from "./PRCard.vue";
 
 export default defineComponent({

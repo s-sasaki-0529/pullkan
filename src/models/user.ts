@@ -1,5 +1,5 @@
-import { PR } from "./pr";
-import { REVIEW_STATUS } from "./constants";
+import { PR } from "@/models/pr";
+import { REVIEW_STATUS } from "@/lib/constants";
 
 export class User {
   constructor(

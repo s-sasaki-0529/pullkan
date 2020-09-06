@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from "vue";
-import { PR } from "../lib/pr";
+import { PR } from "../models/pr";
 
 export default defineComponent({
   props: {
