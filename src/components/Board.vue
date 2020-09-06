@@ -5,23 +5,23 @@
         <div class="column is-3 g-full-height">
           <PRCardGroup
             title="Requested"
-            :pullRequests="state.pullRequests.requested"
+            :pullRequests="store.state.pullRequests.requested"
           />
         </div>
         <div class="column is-3 g-full-height">
           <PRCardGroup
             title="In review"
-            :pullRequests="state.pullRequests.inReview"
+            :pullRequests="store.state.pullRequests.inReview"
           />
         </div>
         <div class="column is-3 g-full-height">
           <PRCardGroup
             title="Approved"
-            :pullRequests="state.pullRequests.approved"
+            :pullRequests="store.state.pullRequests.approved"
           />
         </div>
         <div class="column is-3 g-full-height">
-          <PRCardGroup title="Own" :pullRequests="state.pullRequests.own" />
+          <PRCardGroup title="Own" :pullRequests="store.state.pullRequests.own" />
         </div>
       </div>
     </div>
@@ -29,40 +29,19 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, onMounted, watch } from "vue";
-import { dispatch } from "../lib/dispatcher";
-import PRCardGroup from "./PRCardGroup.vue";
-import { User } from "@/models/user";
-import { PR } from "@/models/pr";
+import { defineComponent, onMounted, watch } from "vue";
+import { useStore } from "@/composition/store"
+import PRCardGroup from "@/components/PRCardGroup.vue";
 
 export default defineComponent({
   components: {
     PRCardGroup,
   },
   setup() {
-    const state = reactive({
-      onLoading: false,
-      currentUser: null as User | null,
-      pullRequests: {
-        own: [] as PR[],
-        requested: [] as PR[],
-        inReview: [] as PR[],
-        approved: [] as PR[],
-      },
-    });
+    const store = useStore()
 
     function update() {
-      if (state.onLoading) return;
-      state.onLoading = true;
-
-      dispatch()
-        .then((store) => {
-          state.currentUser = store.currentUser;
-          state.pullRequests = store.pullRequests;
-        })
-        .finally(() => {
-          state.onLoading = false;
-        });
+      store.update()
     }
 
     function showConfigModal() {
@@ -75,9 +54,9 @@ export default defineComponent({
     });
 
     watch(
-      () => state.pullRequests.requested,
-      (newPRs, oldPrs) => {
-        const oldPrIds = oldPrs.map((pr) => pr.id);
+      () => store.state.pullRequests.requested,
+      (newPRs, oldPRs) => {
+        const oldPrIds = oldPRs.map((pr) => pr.id);
         newPRs.forEach((newPR) => {
           if (oldPrIds.indexOf(newPR.id) === -1) {
             // TODO: 通知の仕組みは切り出すか
@@ -91,7 +70,7 @@ export default defineComponent({
     );
 
     return {
-      state,
+      store,
       update,
       showConfigModal,
     };

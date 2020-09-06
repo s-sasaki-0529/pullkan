@@ -22,6 +22,7 @@ export default defineComponent({
     title: String,
     pullRequests: {
       type: Array as PropType<PR[]>,
+      required: true
     }
   },
   components: {

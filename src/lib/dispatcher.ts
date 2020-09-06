@@ -3,7 +3,6 @@ import { User } from "@/models/user";
 import { Review } from "@/models/review";
 import { ReviewList } from "@/models/reviewList";
 import { PR } from "@/models/pr";
-import { Store } from "@/composition/store";
 import { Label } from "@/models/label";
 
 async function dispatch() {
@@ -52,7 +51,10 @@ async function dispatch() {
       )
     );
   });
-  return Store(pullRequests, currentUser);
+  return {
+    currentUser,
+    pullRequests
+  }
 }
 
 export { dispatch };
