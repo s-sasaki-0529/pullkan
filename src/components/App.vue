@@ -1,14 +1,19 @@
 <template>
-  <Board class="app"/>
+  <div class="app">
+    <Header />
+    <Board />
+  </div>
 </template>
 
 <script lang="ts">
+import Header from "./Header.vue";
 import Board from "./Board.vue";
 
 export default {
   name: "App",
   components: {
-    Board,
+    Header,
+    Board
   },
 };
 </script>
