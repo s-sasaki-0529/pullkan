@@ -6,16 +6,18 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import Header from "./Header.vue";
 import Board from "./Board.vue";
 
-export default {
-  name: "App",
+export default defineComponent({
   components: {
     Header,
-    Board
+    Board,
   },
-};
+
+  setup() {},
+});
 </script>
 
 <style lang="scss">
