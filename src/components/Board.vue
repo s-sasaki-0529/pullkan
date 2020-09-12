@@ -21,7 +21,10 @@
           />
         </div>
         <div class="column is-3 g-full-height">
-          <PRCardGroup title="Own" :pullRequests="store.state.pullRequests.own" />
+          <PRCardGroup
+            title="Own"
+            :pullRequests="store.state.pullRequests.own"
+          />
         </div>
       </div>
     </div>
@@ -30,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, watch } from "vue";
-import { useStore } from "@/composition/store"
+import { useStore } from "@/composition/store";
 import PRCardGroup from "@/components/PRCardGroup.vue";
 
 export default defineComponent({
@@ -38,10 +41,10 @@ export default defineComponent({
     PRCardGroup,
   },
   setup() {
-    const store = useStore()
+    const store = useStore();
 
     function update() {
-      store.update()
+      store.update();
     }
 
     function showConfigModal() {

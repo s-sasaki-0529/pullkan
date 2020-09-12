@@ -1,20 +1,33 @@
 import { PR } from "@/models/pr";
 import { User } from "@/models/user";
-import { reactive } from "vue";
+import { inject, provide, reactive } from "vue";
 import { dispatch } from "@/lib/dispatcher";
 import { ORGANIZED_PULL_REQUESTS } from "@/lib/constants";
 
-const useStore = () => {
+export const key = Symbol()
+
+export type State = {
+  onLoading: Boolean,
+  currentUser: User | null,
+  pullRequests: ORGANIZED_PULL_REQUESTS
+}
+
+export type Store = {
+  state: State,
+  update: () => void
+}
+
+export const createStore = () => {
   const state = reactive({
     onLoading: false,
-    currentUser: null as User | null, // FIXME: NullObjectのほうがキレイかも
+    currentUser: null,
     pullRequests: {
       own: [],
       requested: [],
       inReview: [],
       approved: [],
-    } as ORGANIZED_PULL_REQUESTS
-  });
+    }
+  } as State);
 
   // Github API を叩いて、レスポンスを元に状態を更新する
   const update = () => {
@@ -58,10 +71,13 @@ const useStore = () => {
     return organizedPRs;
   };
 
-  return {
-    state,
-    update,
-  };
+  return { state, update } as Store;
 };
 
-export { useStore };
+export const provideStore = () => {
+  return provide(key, createStore())
+}
+
+export const useStore = () => {
+  return inject(key) as Store
+}

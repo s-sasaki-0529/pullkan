@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { provideStore } from "@/composition/store";
 import Header from "./Header.vue";
 import Board from "./Board.vue";
 
@@ -16,7 +17,9 @@ export default defineComponent({
     Board,
   },
 
-  setup() {},
+  setup() {
+    provideStore();
+  },
 });
 </script>
 
