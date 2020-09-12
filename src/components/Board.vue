@@ -47,10 +47,6 @@ export default defineComponent({
       store.update();
     }
 
-    function showConfigModal() {
-      alert("未実装");
-    }
-
     onMounted(() => {
       update();
       setInterval(() => update(), 5 * 60 * 1000);
@@ -75,7 +71,6 @@ export default defineComponent({
     return {
       store,
       update,
-      showConfigModal,
     };
   },
 });

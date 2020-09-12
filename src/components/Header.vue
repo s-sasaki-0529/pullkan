@@ -7,7 +7,11 @@
         PullKan
       </a>
     </h1>
-    <span class="icon" :class="{ loading: true}" @click="update">
+    <span
+      class="icon"
+      :class="{ loading: store.state.onLoading }"
+      @click="store.update"
+    >
       <i class="fas fa-sync"></i>
     </span>
     <span class="icon" @click="showConfigModal">
@@ -17,9 +21,22 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+import { useStore } from "@/composition/store";
+export default defineComponent({
+  setup() {
+    const store = useStore();
 
-}
+    const showConfigModal = () => {
+      alert("未実装");
+    };
+
+    return {
+      store,
+      showConfigModal,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
