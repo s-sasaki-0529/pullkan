@@ -15,6 +15,17 @@ export class PR {
   ) {}
 
   /**
+   * 二種類のPR一覧を渡し、newPRsに新しいrequestedPRが追加されているか判定する
+   * 新規PRがある場合はその先頭PRを戻す
+   */
+  static getNewRequestedPR(oldPRs: PR[], newPRs: PR[]): PR | undefined {
+    const oldPRIds = oldPRs.map((pr) => pr.id);
+    return newPRs.find((newPr) => {
+      return oldPRIds.indexOf(newPr.id) === -1;
+    });
+  }
+
+  /**
    * 指定したユーザがPRの所有者であるか
    */
   isOwnedBy(user: User) {

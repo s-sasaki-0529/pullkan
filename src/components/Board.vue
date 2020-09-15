@@ -35,6 +35,7 @@
 import { defineComponent, onMounted, watch } from "vue";
 import { useStore } from "@/composition/store";
 import PRCardGroup from "@/components/PRCardGroup.vue";
+import { PR } from "@/models/pr";
 
 export default defineComponent({
   components: {
@@ -55,16 +56,13 @@ export default defineComponent({
     watch(
       () => store.state.pullRequests.requested,
       (newPRs, oldPRs) => {
-        const oldPrIds = oldPRs.map((pr) => pr.id);
-        newPRs.forEach((newPR) => {
-          if (oldPrIds.indexOf(newPR.id) === -1) {
-            // TODO: 通知の仕組みは切り出すか
-            new Notification("レビュー依頼が届きました", {
-              body: newPR.title,
-              icon: newPR.author.avatarUrl,
-            });
-          }
-        });
+        const firstNewPR = PR.getNewRequestedPR(oldPRs, newPRs);
+        if (firstNewPR) {
+          new Notification("レビュー依頼が届きました", {
+            body: firstNewPR.title,
+            icon: firstNewPR.author.avatarUrl,
+          });
+        }
       }
     );
 
