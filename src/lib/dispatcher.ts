@@ -1,19 +1,25 @@
-import { callPullRequests } from '@/lib/http'
+/**
+ * httpモジュール経由でGithubAPIを叩き、型が不定なレスポンスから型付けされたクラスに変換するモジュール
+ */
+import { callCurrentUser, callPullRequests } from '@/lib/http'
 import { User } from '@/models/user'
 import { Review } from '@/models/review'
 import { ReviewList } from '@/models/reviewList'
 import { PR } from '@/models/pr'
 import { Label } from '@/models/label'
 
-async function dispatch() {
+async function dispatchCallCurrentUser(): Promise<User> {
+  const apiResponse = await callCurrentUser()
+  const rawCurrentUser = apiResponse.data.viewer
+  //const rawRepositories = rawCurrentUser.repositoriesContributedTo.nodes
+  return new User(rawCurrentUser.id, rawCurrentUser.login, rawCurrentUser.avatarUrl)
+}
+
+async function dispatchCallPullRequests(): Promise<PR[]> {
   const apiResponse = await callPullRequests()
-
   const rawPullRequests = apiResponse.data.repository.pullRequests.edges
-  const rawViewer = apiResponse.data.viewer
 
-  const currentUser = new User(rawViewer.id, rawViewer.login, rawViewer.avatarUrl)
-
-  const pullRequests: PR[] = rawPullRequests.map((r: any) => {
+  return rawPullRequests.map((r: any) => {
     const node = r.node
     return new PR(
       node.id,
@@ -39,10 +45,14 @@ async function dispatch() {
       )
     )
   })
-  return {
-    currentUser,
-    pullRequests
-  }
+}
+
+async function dispatch() {
+  const [currentUser, pullRequests] = await Promise.all([
+    dispatchCallCurrentUser(),
+    dispatchCallPullRequests()
+  ])
+  return { currentUser, pullRequests }
 }
 
 export { dispatch }

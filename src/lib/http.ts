@@ -1,3 +1,6 @@
+/**
+ * GithubAPIを直接叩くモジュール
+ */
 import axios from 'axios'
 
 const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN // いずれ画面から設定できるように
@@ -16,7 +19,7 @@ function callGithubAPI(query: String) {
   }).then(res => res.data)
 }
 
-function callSelectableRepositories() {
+function callCurrentUser() {
   return callGithubAPI(`
   {
     viewer {
@@ -48,11 +51,6 @@ function callPullRequests() {
   const repoName = 'teachme_web_duvel'
   return callGithubAPI(`
   {
-    viewer {
-      id
-      login
-      avatarUrl
-    }
     repository(owner: "${organization}", name: "${repoName}") {
       pullRequests(last: 100, states: [OPEN]) {
         edges {
@@ -118,4 +116,4 @@ function callPullRequests() {
   `)
 }
 
-export { callSelectableRepositories, callPullRequests }
+export { callCurrentUser, callPullRequests }
