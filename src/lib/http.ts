@@ -1,10 +1,52 @@
 import axios from 'axios'
 
-function callAPI() {
-  const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN // いずれ画面から設定できるように
+const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN // いずれ画面から設定できるように
+
+function callGithubAPI(query: String) {
+  return axios({
+    url: 'https://api.github.com/graphql',
+    headers: {
+      Authorization: `bearer ${accessToken}`,
+      Accept: 'application/vnd.github.v4.idl'
+    },
+    method: 'POST',
+    data: {
+      query
+    }
+  }).then(res => res.data)
+}
+
+function callSelectableRepositories() {
+  return callGithubAPI(`
+  {
+    viewer {
+      id
+      login
+      avatarUrl
+      repositoriesContributedTo(first: 99) {
+        nodes {
+          name
+          owner {
+            ... on Organization {
+              id
+              login
+            }
+            ... on User {
+              id
+              login
+            }
+          }
+        }
+      }
+    }
+  }
+  `)
+}
+
+function callPullRequests() {
   const organization = 'StudistCorporation'
   const repoName = 'teachme_web_duvel'
-  const query = `
+  return callGithubAPI(`
   {
     viewer {
       id
@@ -73,20 +115,7 @@ function callAPI() {
       }
     }
   }
-
-  `
-
-  return axios({
-    url: 'https://api.github.com/graphql',
-    headers: {
-      Authorization: `bearer ${accessToken}`,
-      Accept: 'application/vnd.github.v4.idl'
-    },
-    method: 'POST',
-    data: {
-      query
-    }
-  }).then(res => res.data)
+  `)
 }
 
-export { callAPI }
+export { callSelectableRepositories, callPullRequests }

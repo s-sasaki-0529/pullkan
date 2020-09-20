@@ -1,4 +1,4 @@
-import { callAPI } from '@/lib/http'
+import { callPullRequests } from '@/lib/http'
 import { User } from '@/models/user'
 import { Review } from '@/models/review'
 import { ReviewList } from '@/models/reviewList'
@@ -6,7 +6,7 @@ import { PR } from '@/models/pr'
 import { Label } from '@/models/label'
 
 async function dispatch() {
-  const apiResponse = await callAPI()
+  const apiResponse = await callPullRequests()
 
   const rawPullRequests = apiResponse.data.repository.pullRequests.edges
   const rawViewer = apiResponse.data.viewer
