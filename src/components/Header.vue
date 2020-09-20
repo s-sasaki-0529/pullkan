@@ -1,10 +1,15 @@
 <template>
   <header class="header">
     <h1 class="repository">
-      <a href="https://github.com/Sa2Knight" target="_blank">Sa2Knight</a>
+      <a href="https://github.com/StudistCorporation" target="_blank">
+        StudistCorporation
+      </a>
       /
-      <a href="https://github.com/Sa2Knight/PullKan" target="_blank">
-        PullKan
+      <a
+        href="https://github.com/StudistCorporation/teachme_web_duvel"
+        target="_blank"
+      >
+        teachme_web_duvel
       </a>
     </h1>
     <span
@@ -18,21 +23,31 @@
       <i class="fas fa-cog"></i>
     </span>
   </header>
+
+  <SettingModal
+    v-if="isShowSettingModal"
+    :onClose="() => (isShowSettingModal = false)"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 import { useStore } from "@/composition/store";
+import SettingModal from "@/components/SettingModal.vue";
+
 export default defineComponent({
+  components: {
+    SettingModal,
+  },
   setup() {
     const store = useStore();
+    const isShowSettingModal = ref(false);
 
-    const showConfigModal = () => {
-      alert("未実装");
-    };
+    const showConfigModal = () => (isShowSettingModal.value = true);
 
     return {
       store,
+      isShowSettingModal,
       showConfigModal,
     };
   },
