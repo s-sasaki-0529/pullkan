@@ -1,5 +1,5 @@
 <template>
-  <div class="board g-full-height">
+  <div class="board">
     <div class="content">
       <div class="columns g-full-height">
         <div class="column is-3 g-full-height">
@@ -75,7 +75,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.content {
+.board {
+  // NOTE: 80pxはヘッダーだろうけどマジックナンバーよくない
   height: calc(100% - 80px);
+  .content {
+    height: 100%;
+  }
 }
 </style>
