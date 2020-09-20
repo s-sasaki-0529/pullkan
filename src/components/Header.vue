@@ -5,18 +5,11 @@
         StudistCorporation
       </a>
       /
-      <a
-        href="https://github.com/StudistCorporation/teachme_web_duvel"
-        target="_blank"
-      >
+      <a href="https://github.com/StudistCorporation/teachme_web_duvel" target="_blank">
         teachme_web_duvel
       </a>
     </h1>
-    <span
-      class="icon"
-      :class="{ loading: store.state.onLoading }"
-      @click="store.update"
-    >
+    <span class="icon" :class="{ loading: store.state.onLoading }" @click="store.update">
       <i class="fas fa-sync"></i>
     </span>
     <span class="icon" @click="showConfigModal">
@@ -24,34 +17,31 @@
     </span>
   </header>
 
-  <SettingModal
-    v-if="isShowSettingModal"
-    :onClose="() => (isShowSettingModal = false)"
-  />
+  <SettingModal v-if="isShowSettingModal" :onClose="() => (isShowSettingModal = false)" />
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from "vue";
-import { useStore } from "@/composition/store";
-import SettingModal from "@/components/SettingModal.vue";
+import { ref, defineComponent } from 'vue'
+import { useStore } from '@/composition/store'
+import SettingModal from '@/components/SettingModal.vue'
 
 export default defineComponent({
   components: {
-    SettingModal,
+    SettingModal
   },
   setup() {
-    const store = useStore();
-    const isShowSettingModal = ref(false);
+    const store = useStore()
+    const isShowSettingModal = ref(false)
 
-    const showConfigModal = () => (isShowSettingModal.value = true);
+    const showConfigModal = () => (isShowSettingModal.value = true)
 
     return {
       store,
       isShowSettingModal,
-      showConfigModal,
-    };
-  },
-});
+      showConfigModal
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

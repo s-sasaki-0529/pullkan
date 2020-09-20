@@ -36,22 +36,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from "vue";
-import { PR } from "../models/pr";
+import { defineComponent, computed, PropType } from 'vue'
+import { PR } from '../models/pr'
 
 export default defineComponent({
   props: {
     pr: {
       type: Object as PropType<PR>,
-      required: true,
+      required: true
     }
   },
   setup(props) {
     return {
-      approvedCount: computed(() => props.pr.calcApprovedCount()),
-    };
-  },
-});
+      approvedCount: computed(() => props.pr.calcApprovedCount())
+    }
+  }
+})
 </script>
 
 <style lang="scss">

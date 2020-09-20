@@ -52,5 +52,12 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "printWidth": 110,
+    "arrowParens": "avoid"
+  }
 }

@@ -1,39 +1,39 @@
-import { Review } from "@/models/review";
-import { User } from "@/models/user";
-import { REVIEW_STATUS } from "@/lib/constants";
+import { Review } from '@/models/review'
+import { User } from '@/models/user'
+import { REVIEW_STATUS } from '@/lib/constants'
 
 export class ReviewList {
-  public length: number;
+  public length: number
 
   constructor(public reviews: Review[]) {
-    this.length = reviews.length;
+    this.length = reviews.length
   }
 
   /**
    * ユーザで絞り込む
    */
   byUser(user: User) {
-    return new ReviewList(this.reviews.filter((r) => r.user.id === user.id));
+    return new ReviewList(this.reviews.filter(r => r.user.id === user.id))
   }
 
   /**
    * ステータスで絞り込む
    */
   byState(state: REVIEW_STATUS) {
-    return new ReviewList(this.reviews.filter((r) => r.state === state));
+    return new ReviewList(this.reviews.filter(r => r.state === state))
   }
 
   /**
    * 指定日時以降のレビューのみ絞り込む
    */
   byDateFrom(date: Date) {
-    return new ReviewList(this.reviews.filter((r) => r.createdAt >= date));
+    return new ReviewList(this.reviews.filter(r => r.createdAt >= date))
   }
 
   /**
    * 最後のReviewオブジェクトを取得する
    */
   last(): Review | null {
-    return this.length > 0 ? this.reviews[this.length - 1] : null;
+    return this.length > 0 ? this.reviews[this.length - 1] : null
   }
 }

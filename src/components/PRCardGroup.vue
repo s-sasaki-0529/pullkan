@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { PR } from "../models/pr";
-import PRCard from "./PRCard.vue";
+import { defineComponent, PropType } from 'vue'
+import { PR } from '../models/pr'
+import PRCard from './PRCard.vue'
 
 export default defineComponent({
   props: {
@@ -26,18 +26,18 @@ export default defineComponent({
     }
   },
   components: {
-    PRCard,
+    PRCard
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>
-@import "../../node_modules/bulma/bulma.sass";
+@import '../../node_modules/bulma/bulma.sass';
 
 .card-group {
   background-color: $light;
   border-radius: 2%;
-  min-height: "100%";
+  min-height: '100%';
   overflow: scroll;
 
   .title {

@@ -18,24 +18,24 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from "vue";
+import { PropType, defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
     onClose: {
       type: Function as PropType<() => void>,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const save = () => {
-      alert("セーブしました(嘘)");
-      props.onClose();
-    };
+      alert('セーブしました(嘘)')
+      props.onClose()
+    }
     return {
       props,
-      save,
-    };
-  },
-});
+      save
+    }
+  }
+})
 </script>

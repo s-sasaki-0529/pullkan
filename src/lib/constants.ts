@@ -1,6 +1,6 @@
 // TODO: constantsでなくtypesかな
 
-import { PR } from '@/models/pr';
+import { PR } from '@/models/pr'
 
 export type ORGANIZED_PULL_REQUESTS = {
   own: PR[]
@@ -9,9 +9,4 @@ export type ORGANIZED_PULL_REQUESTS = {
   approved: PR[]
 }
 
-export type REVIEW_STATUS =
-  | "APPROVED"
-  | "CHANGES_REQUESTED"
-  | "COMMENTED"
-  | "DISMISSED"
-  | "PENDING";
+export type REVIEW_STATUS = 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'DISMISSED' | 'PENDING'

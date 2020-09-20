@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios'
 
 function callAPI() {
-  const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN; // いずれ画面から設定できるように
-  const organization = "StudistCorporation";
-  const repoName = "teachme_web_duvel";
+  const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN // いずれ画面から設定できるように
+  const organization = 'StudistCorporation'
+  const repoName = 'teachme_web_duvel'
   const query = `
   {
     viewer {
@@ -74,19 +74,19 @@ function callAPI() {
     }
   }
 
-  `;
+  `
 
   return axios({
-    url: "https://api.github.com/graphql",
+    url: 'https://api.github.com/graphql',
     headers: {
       Authorization: `bearer ${accessToken}`,
-      Accept: "application/vnd.github.v4.idl",
+      Accept: 'application/vnd.github.v4.idl'
     },
-    method: "POST",
+    method: 'POST',
     data: {
-      query,
-    },
-  }).then((res) => res.data);
+      query
+    }
+  }).then(res => res.data)
 }
 
-export { callAPI };
+export { callAPI }

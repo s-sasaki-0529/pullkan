@@ -6,25 +6,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { provideStore } from "@/composition/store";
-import Header from "./Header.vue";
-import Board from "./Board.vue";
+import { defineComponent } from 'vue'
+import { provideStore } from '@/composition/store'
+import Header from './Header.vue'
+import Board from './Board.vue'
 
 export default defineComponent({
   components: {
     Header,
-    Board,
+    Board
   },
 
   setup() {
-    provideStore();
-  },
-});
+    provideStore()
+  }
+})
 </script>
 
 <style lang="scss">
-@import "../../node_modules/bulma/bulma.sass";
+@import '../../node_modules/bulma/bulma.sass';
 
 .app {
   height: 100vh;
