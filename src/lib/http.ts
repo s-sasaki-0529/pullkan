@@ -28,6 +28,7 @@ function callCurrentUser() {
       avatarUrl
       repositoriesContributedTo(first: 99) {
         nodes {
+          id
           name
           owner {
             ... on Organization {

@@ -7,12 +7,20 @@ import { Review } from '@/models/review'
 import { ReviewList } from '@/models/reviewList'
 import { PR } from '@/models/pr'
 import { Label } from '@/models/label'
+import Repository from '@/models/repository'
+import CurrentUser from '@/models/currentUser'
 
-async function dispatchCallCurrentUser(): Promise<User> {
+async function dispatchCallCurrentUser() {
   const apiResponse = await callCurrentUser()
   const rawCurrentUser = apiResponse.data.viewer
-  //const rawRepositories = rawCurrentUser.repositoriesContributedTo.nodes
-  return new User(rawCurrentUser.id, rawCurrentUser.login, rawCurrentUser.avatarUrl)
+  const rawRepositories = rawCurrentUser.repositoriesContributedTo.nodes
+
+  return new CurrentUser(
+    rawCurrentUser.id,
+    rawCurrentUser.login,
+    rawCurrentUser.avatarUrl,
+    rawRepositories.map((r: any) => new Repository(r.id, r.owner.login, r.name))
+  )
 }
 
 async function dispatchCallPullRequests(): Promise<PR[]> {
@@ -52,6 +60,7 @@ async function dispatch() {
     dispatchCallCurrentUser(),
     dispatchCallPullRequests()
   ])
+  console.log(currentUser)
   return { currentUser, pullRequests }
 }
 
