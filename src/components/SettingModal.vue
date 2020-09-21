@@ -7,20 +7,24 @@
         <button class="delete" aria-label="close" @click="props.onClose" />
       </header>
       <section class="modal-card-body">
-        <form>
-          <label class="label">Repositories</label>
-          <div class="select-repository select is-multiple">
-            <select multiple size="8">
-              <option
-                v-for="repository in store.state.currentUser?.repositories"
-                :key="repository.id"
-                :value="repository"
-              >
-                {{ repository.fullName }}
-              </option>
-            </select>
+        <div class="columns">
+          <div class="column is-3">
+            <label class="label">Repositories</label>
           </div>
-        </form>
+          <div class="column">
+            <div class="select-repository select is-multiple">
+              <select multiple size="5">
+                <option
+                  v-for="repository in store.state.currentUser?.repositories"
+                  :key="repository.id"
+                  :value="repository"
+                >
+                  {{ repository.fullName }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save">Save</button>
