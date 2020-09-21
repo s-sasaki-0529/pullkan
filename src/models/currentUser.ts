@@ -11,4 +11,8 @@ export default class CurrentUser extends User {
     super(id, name, avatarUrl)
     this.repositories = this.repositories.sort((a, b) => (a.fullName < b.fullName ? -1 : 1))
   }
+
+  static NullObject() {
+    return new CurrentUser('', '', '', [])
+  }
 }

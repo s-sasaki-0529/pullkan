@@ -32,13 +32,8 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    function reload() {
-      store.reload()
-    }
-
     onMounted(() => {
-      reload()
-      setInterval(() => reload(), 5 * 60 * 1000)
+      setInterval(() => store.reload(), 5 * 60 * 1000)
     })
 
     watch(
@@ -54,10 +49,7 @@ export default defineComponent({
       }
     )
 
-    return {
-      store,
-      reload
-    }
+    return { store }
   }
 })
 </script>

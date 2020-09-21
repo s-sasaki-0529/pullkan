@@ -3,13 +3,16 @@
  */
 import axios from 'axios'
 
-const accessToken = process.env.VUE_APP_GITHUB_ACCESS_TOKEN // いずれ画面から設定できるように
-
 function callGithubAPI(query: String) {
+  const token = sessionStorage.getItem('token')
+  if (token === null) {
+    throw new Error('Calling the GitHub API without a token')
+  }
+
   return axios({
     url: 'https://api.github.com/graphql',
     headers: {
-      Authorization: `bearer ${accessToken}`,
+      Authorization: `bearer ${token}`,
       Accept: 'application/vnd.github.v4.idl'
     },
     method: 'POST',

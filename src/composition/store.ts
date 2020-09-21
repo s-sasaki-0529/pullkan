@@ -8,7 +8,7 @@ export const key = Symbol()
 
 export type State = {
   onLoading: Boolean
-  currentUser: CurrentUser | null
+  currentUser: CurrentUser
   pullRequests: ORGANIZED_PULL_REQUESTS
 }
 
@@ -20,7 +20,7 @@ export type Store = {
 export const createStore = () => {
   const state = reactive({
     onLoading: false,
-    currentUser: null,
+    currentUser: CurrentUser.NullObject(),
     pullRequests: {
       own: [],
       requested: [],
