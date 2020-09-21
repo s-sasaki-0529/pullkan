@@ -14,8 +14,8 @@ jobs:
       with:
         node-version: '12'
     - name: Install Dependencies
-      run: npm install
+      run: yarn install
     - name: Build
-      run: npm run build
+      run: yarn build
     - name: Deploy To Firebase Hosting
-      run: npm run deploy --token=${{ secrets.FIREBASE_TOKEN }}
+      run: yarn firebase deploy --token=${{ secrets.FIREBASE_TOKEN }}
