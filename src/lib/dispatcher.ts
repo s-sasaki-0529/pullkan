@@ -60,7 +60,6 @@ async function dispatch() {
     dispatchCallCurrentUser(),
     dispatchCallPullRequests()
   ])
-  console.log(currentUser)
   return { currentUser, pullRequests }
 }
 
