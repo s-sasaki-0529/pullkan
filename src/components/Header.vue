@@ -9,7 +9,7 @@
         teachme_web_duvel
       </a>
     </h1>
-    <span class="icon" :class="{ loading: store.state.onLoading }" @click="store.update">
+    <span class="icon" :class="{ loading: store.state.onLoading }" @click="store.reload">
       <i class="fas fa-sync"></i>
     </span>
     <span class="icon" @click="showConfigModal">

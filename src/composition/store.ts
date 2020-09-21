@@ -14,7 +14,7 @@ export type State = {
 
 export type Store = {
   state: State
-  update: () => void
+  reload: () => void
 }
 
 export const createStore = () => {
@@ -30,7 +30,7 @@ export const createStore = () => {
   } as State)
 
   // Github API を叩いて、レスポンスを元に状態を更新する
-  const update = () => {
+  const reload = () => {
     if (state.onLoading) return
     state.onLoading = true
 
@@ -71,7 +71,7 @@ export const createStore = () => {
     return organizedPRs
   }
 
-  return { state, update } as Store
+  return { state, reload } as Store
 }
 
 export const provideStore = () => {
