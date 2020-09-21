@@ -1,4 +1,4 @@
-name: deploy_to_firebase
+name: "Build and Deploy"
 on:
   push:
     branches:
@@ -17,5 +17,5 @@ jobs:
       run: npm install
     - name: Build
       run: npm run build
-    - name: Chec
-      run: ls -l dist
+    - name: Deploy To Firebase Hosting
+      run: npm run deoloy --token=${{ secrets.FIREBASE_TOKEN }}
