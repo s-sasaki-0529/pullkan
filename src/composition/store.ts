@@ -1,5 +1,5 @@
 import { PR } from '@/models/pr'
-import { User } from '@/models/user'
+import CurrentUser from '@/models/currentUser'
 import { inject, provide, reactive } from 'vue'
 import { dispatch } from '@/lib/dispatcher'
 import { ORGANIZED_PULL_REQUESTS } from '@/lib/constants'
@@ -8,7 +8,7 @@ export const key = Symbol()
 
 export type State = {
   onLoading: Boolean
-  currentUser: User | null
+  currentUser: CurrentUser | null
   pullRequests: ORGANIZED_PULL_REQUESTS
 }
 

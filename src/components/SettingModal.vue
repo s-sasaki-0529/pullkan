@@ -11,18 +11,13 @@
           <label class="label">Repositories</label>
           <div class="select-repository select is-multiple">
             <select multiple size="8">
-              <option value="Argentina">Argentina</option>
-              <option value="Bolivia">Bolivia</option>
-              <option value="Brazil">Brazil</option>
-              <option value="Chile">Chile</option>
-              <option value="Colombia">Colombia</option>
-              <option value="Ecuador">Ecuador</option>
-              <option value="Guyana">Guyana</option>
-              <option value="Paraguay">Paraguay</option>
-              <option value="Peru">Peru</option>
-              <option value="Suriname">Suriname</option>
-              <option value="Uruguay">Uruguay</option>
-              <option value="Venezuela">Venezuela</option>
+              <option
+                v-for="repository in store.state.currentUser?.repositories"
+                :key="repository.id"
+                :value="repository"
+              >
+                {{ repository.fullName }}
+              </option>
             </select>
           </div>
         </form>
@@ -37,6 +32,7 @@
 
 <script lang="ts">
 import { PropType, defineComponent } from 'vue'
+import { useStore } from '@/composition/store'
 
 export default defineComponent({
   props: {
@@ -46,14 +42,12 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const store = useStore()
     const save = () => {
       alert('セーブしました(嘘)')
       props.onClose()
     }
-    return {
-      props,
-      save
-    }
+    return { store, props, save }
   }
 })
 </script>

@@ -9,5 +9,7 @@ export default class CurrentUser extends User {
     public repositories: Repository[]
   ) {
     super(id, name, avatarUrl)
+    this.repositories = this.repositories.sort((a, b) => (a.fullName < b.fullName ? -1 : 1))
+    console.log(this.repositories)
   }
 }

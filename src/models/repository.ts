@@ -1,11 +1,15 @@
 export default class Repository {
   constructor(public id: string, public ownerId: string, public name: string) {}
 
-  getURL() {
-    return `${this.getOwnerURL()}/${this.name}`
+  get fullName() {
+    return `${this.ownerId}/${this.name}`
   }
 
-  getOwnerURL() {
+  get url() {
+    return `${this.ownerUrl}/${this.name}`
+  }
+
+  get ownerUrl() {
     return `https://github.com/${this.ownerId}`
   }
 }
