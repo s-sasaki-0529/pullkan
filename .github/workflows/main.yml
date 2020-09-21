@@ -18,4 +18,4 @@ jobs:
     - name: Build
       run: npm run build
     - name: Deploy To Firebase Hosting
-      run: npm run deoloy --token=${{ secrets.FIREBASE_TOKEN }}
+      run: npm run deploy --token=${{ secrets.FIREBASE_TOKEN }}
