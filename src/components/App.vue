@@ -27,8 +27,7 @@ export default defineComponent({
     provideStore()
     const store = useStore()
 
-    authByGitHub().then(token => {
-      sessionStorage.setItem('token', token)
+    authByGitHub().then(() => {
       state.ready = true
       store.reload()
     })

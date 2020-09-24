@@ -2,17 +2,13 @@
  * GithubAPIを直接叩くモジュール
  */
 import axios from 'axios'
+import { getCurrentUserToken } from '@/lib/authentication'
 
 function callGithubAPI(query: String) {
-  const token = sessionStorage.getItem('token')
-  if (token === null) {
-    throw new Error('Calling the GitHub API without a token')
-  }
-
   return axios({
     url: 'https://api.github.com/graphql',
     headers: {
-      Authorization: `bearer ${token}`,
+      Authorization: `bearer ${getCurrentUserToken()}`,
       Accept: 'application/vnd.github.v4.idl'
     },
     method: 'POST',

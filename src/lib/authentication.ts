@@ -1,6 +1,12 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 
+/**
+ * TODO: 全面的に認証を整理する
+ * - ユーザインタラクションに基づいてサインイン、サインアウトする
+ * - GitHub API token の扱いをちゃんとする
+ */
+
 function initFirebase() {
   firebase.initializeApp({
     apiKey: 'AIzaSyDOycQ_8kEQFgO1VMQ5XFx1EOcE91zgaBg',
@@ -13,25 +19,30 @@ function initFirebase() {
   })
 }
 
-async function authByGitHub() {
-  initFirebase()
-
-  const provider = new firebase.auth.GithubAuthProvider()
-  provider.addScope('repo, user')
-
-  return firebase
-    .auth()
-    .getRedirectResult()
-    .then(result => {
-      if (result.user) {
-        const credential: any = result.credential
-        const token: string = credential.accessToken
-        return Promise.resolve(token)
-      } else {
-        firebase.auth().signInWithRedirect(provider)
-        return Promise.reject()
-      }
-    })
+function getCurrentUserToken() {
+  const token = firebase.auth().currentUser?.displayName
+  if (token) {
+    return token
+  } else {
+    // TODO: 自動更新
+    alert('トークンの期限切れてる')
+    return ''
+  }
 }
 
-export { authByGitHub }
+function authByGitHub() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged(async user => {
+      if (user) {
+        resolve()
+      } else {
+        const provider = new firebase.auth.GithubAuthProvider()
+        provider.addScope('repo, user')
+        return firebase.auth().signInWithPopup(provider)
+      }
+    })
+  })
+}
+
+initFirebase()
+export { authByGitHub, getCurrentUserToken }
