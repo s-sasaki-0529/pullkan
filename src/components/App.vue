@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import { authByGitHub } from '@/lib/authentication'
+import { authenticate } from '@/lib/authentication'
 import { provideStore, useStore } from '@/composition/store'
 import Header from './Header.vue'
 import Board from './Board.vue'
@@ -27,7 +27,7 @@ export default defineComponent({
     provideStore()
     const store = useStore()
 
-    authByGitHub().then(() => {
+    authenticate().then(() => {
       state.ready = true
       store.reload()
     })

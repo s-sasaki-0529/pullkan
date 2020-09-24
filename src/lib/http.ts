@@ -2,10 +2,10 @@
  * GithubAPIを直接叩くモジュール
  */
 import axios from 'axios'
-import { fetchGitHubToken } from '@/lib/authentication'
+import { loadGitHubToken } from '@/lib/authentication'
 
 async function callGithubAPI(query: String) {
-  const token = await fetchGitHubToken()
+  const token = await loadGitHubToken()
   return axios({
     url: 'https://api.github.com/graphql',
     headers: {
