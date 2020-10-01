@@ -39,6 +39,7 @@ async function dispatchCallPullRequests(): Promise<PR[]> {
         return new Label(l.name, l.color)
       }),
       node.reviewRequests.edges.map((e: any) => {
+        // TODO: チーム経由でレビュー依頼が来てた場合の対応
         const reviewer = e.node.requestedReviewer
         return new User(reviewer.id, reviewer.login, reviewer.avatarUrl)
       }),

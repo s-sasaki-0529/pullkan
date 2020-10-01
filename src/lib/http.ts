@@ -76,6 +76,17 @@ function callPullRequests() {
                       avatarUrl
                       login
                     }
+                    ... on Team {
+                      id
+                      name
+                      members {
+                        nodes {
+                          login
+                          name
+                          avatarUrl
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -114,6 +125,7 @@ function callPullRequests() {
       }
     }
   }
+
   `)
 }
 

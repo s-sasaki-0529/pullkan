@@ -47,7 +47,7 @@ async function authenticate() {
         resolve()
       } else {
         const provider = new firebase.auth.GithubAuthProvider()
-        provider.addScope('repo, user')
+        provider.addScope('repo, user, read:org')
         firebase
           .auth()
           .signInWithPopup(provider)
