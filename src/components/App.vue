@@ -12,6 +12,7 @@
 import { defineComponent, reactive } from 'vue'
 import { authenticate } from '@/lib/authentication'
 import { provideStore, useStore } from '@/composition/store'
+import { provideSetting, useSetting } from '@/composition/setting'
 import Header from './Header.vue'
 import Board from './Board.vue'
 
@@ -22,14 +23,17 @@ export default defineComponent({
   },
 
   setup() {
-    const state = reactive({ ready: false })
-
     provideStore()
+    provideSetting()
+
+    const state = reactive({ ready: false })
     const store = useStore()
+    const setting = useSetting()
 
     authenticate().then(() => {
       state.ready = true
-      store.reload()
+      setting.load()
+      store.reload(setting.state)
     })
 
     return { state }

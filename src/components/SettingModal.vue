@@ -7,7 +7,22 @@
         <button class="delete" aria-label="close" @click="props.onClose" />
       </header>
       <section class="modal-card-body">
-        <div class="columns">
+        <div class="columns hide-wip-setting">
+          <div class="column is-3">
+            <label class="label">Ignore WIP PRs</label>
+          </div>
+          <div class="column">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" v-model="state.ignoreWipPRs" :value="true" /> Yes
+              </label>
+              <label class="radio">
+                <input type="radio" v-model="state.ignoreWipPRs" :value="false" /> No
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="columns repositories-setting">
           <div class="column is-3">
             <label class="label">Repositories</label>
           </div>
@@ -35,8 +50,9 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue'
+import { PropType, defineComponent, reactive } from 'vue'
 import { useStore } from '@/composition/store'
+import { Setting, useSetting } from '@/composition/setting'
 
 export default defineComponent({
   props: {
@@ -47,11 +63,17 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
+    const setting = useSetting()
+    const state = reactive({
+      ignoreWipPRs: setting.state.ignoreWipPRs
+    } as Setting)
+
     const save = () => {
-      alert('セーブしました(嘘)')
+      setting.save(state)
+      store.reload(state)
       props.onClose()
     }
-    return { store, props, save }
+    return { store, state, props, save }
   }
 })
 </script>

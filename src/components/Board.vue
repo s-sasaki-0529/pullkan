@@ -24,6 +24,7 @@ import { defineComponent, onMounted, watch } from 'vue'
 import { useStore } from '@/composition/store'
 import PRCardGroup from '@/components/PRCardGroup.vue'
 import { PR } from '@/models/pr'
+import { useSetting } from '@/composition/setting'
 
 export default defineComponent({
   components: {
@@ -31,9 +32,10 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
+    const setting = useSetting()
 
     onMounted(() => {
-      setInterval(() => store.reload(), 5 * 60 * 1000)
+      setInterval(() => store.reload(setting.state), 5 * 60 * 1000)
     })
 
     watch(
