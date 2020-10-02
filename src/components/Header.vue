@@ -9,7 +9,7 @@
         teachme_web_duvel
       </a>
     </h1>
-    <span class="icon" :class="{ loading: store.state.onLoading }" @click="store.reload">
+    <span class="icon" :class="{ loading: store.state.onLoading }" @click="reload">
       <i class="fas fa-sync"></i>
     </span>
     <span class="icon" @click="showConfigModal">
@@ -23,6 +23,7 @@
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
 import { useStore } from '@/composition/store'
+import { useSetting } from '@/composition/setting'
 import SettingModal from '@/components/SettingModal.vue'
 
 export default defineComponent({
@@ -31,13 +32,16 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
+    const setting = useSetting()
     const isShowSettingModal = ref(false)
 
+    const reload = () => store.reload(setting.state)
     const showConfigModal = () => (isShowSettingModal.value = true)
 
     return {
       store,
       isShowSettingModal,
+      reload,
       showConfigModal
     }
   }
