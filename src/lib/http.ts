@@ -5,6 +5,8 @@ import axios from 'axios'
 import { loadGitHubToken } from '@/lib/authentication'
 import { REVIEW_STATUS } from './constants'
 
+// FIXME: 手動で管理するものじゃない気がする
+// https://github.com/octokit/graphql-schema
 type PullRequestsResponseType = {
   data: {
     repository: {
