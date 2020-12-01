@@ -3,6 +3,72 @@
  */
 import axios from 'axios'
 import { loadGitHubToken } from '@/lib/authentication'
+import { REVIEW_STATUS } from './constants'
+
+type PullRequestsResponseType = {
+  data: {
+    repository: {
+      pullRequests: {
+        edges: {
+          node: {
+            id: string
+            title: string
+            url: string
+            author: {
+              id: string
+              avatarUrl: string
+              login: string
+            }
+            reviewRequests: {
+              edges: {
+                node: {
+                  requestedReviewer: {
+                    id: string
+                    name?: string
+                    avatarUrl?: string
+                    login?: string
+                    members?: {
+                      login: string
+                      name?: string
+                      avatarUrl: string
+                    }[]
+                  }
+                }
+              }[]
+            }
+            reviews: {
+              edges: {
+                node: {
+                  state: REVIEW_STATUS
+                  id: string
+                  createdAt: string
+                  author: {
+                    id?: string
+                    avatarUrl?: string
+                    login?: string
+                  }
+                }
+              }[]
+            }
+            commits: {
+              nodes: {
+                commit: {
+                  committedDate: string
+                }
+              }[]
+            }
+            labels: {
+              nodes: {
+                name: string
+                color: string
+              }[]
+            }
+          }
+        }[]
+      }
+    }
+  }
+}
 
 async function callGithubAPI(query: String) {
   const token = await loadGitHubToken()
@@ -47,7 +113,7 @@ function callCurrentUser() {
   `)
 }
 
-function callPullRequests() {
+function callPullRequests(): Promise<PullRequestsResponseType> {
   const organization = 'StudistCorporation'
   const repoName = 'teachme_web_duvel'
   return callGithubAPI(`
