@@ -30,10 +30,13 @@ type PullRequestsResponseType = {
                     avatarUrl?: string
                     login?: string
                     members?: {
-                      login: string
-                      name?: string
-                      avatarUrl: string
-                    }[]
+                      nodes: {
+                        id: string
+                        login: string
+                        name?: string
+                        avatarUrl: string
+                      }[]
+                    }
                   }
                 }
               }[]
@@ -149,6 +152,7 @@ function callPullRequests(): Promise<PullRequestsResponseType> {
                       name
                       members {
                         nodes {
+                          id
                           login
                           name
                           avatarUrl

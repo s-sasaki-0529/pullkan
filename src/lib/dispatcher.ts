@@ -42,11 +42,17 @@ async function dispatchCallPullRequests(): Promise<PR[]> {
       node.labels.nodes.map(l => {
         return new Label(l.name, l.color)
       }),
-      node.reviewRequests.edges.map(e => {
-        // NOTE: チーム経由での依頼の場合も、個人への依頼として扱う
-        const reviewer = e.node.requestedReviewer
-        return new User(reviewer.id || '', reviewer.login || '', reviewer.avatarUrl || '')
-      }),
+      node.reviewRequests.edges
+        .map(e => {
+          const reviewer = e.node.requestedReviewer
+          if (reviewer.members) {
+            console.log(reviewer.members.nodes)
+          }
+          return reviewer.members
+            ? reviewer.members.nodes.map(member => new User(member.id, member.login, member.avatarUrl))
+            : [new User(reviewer.id, reviewer.login || '', reviewer.avatarUrl || '')]
+        })
+        .flat(),
       new ReviewList(
         node.reviews.edges.map(e => {
           return new Review(
