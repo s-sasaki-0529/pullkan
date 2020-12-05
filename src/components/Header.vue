@@ -52,7 +52,7 @@ export default defineComponent({
 .header {
   display: flex;
   align-items: center;
-  margin: 15px;
+  padding: 30px;
   height: 50px;
   .repository {
     font-size: 1.75em;
