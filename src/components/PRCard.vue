@@ -13,7 +13,7 @@
       </div>
     </header>
     <div class="card-content">
-      <a :href="pr.url" target="_blanl" class="content">
+      <a :href="pr.url" target="_blanl" rel="noreferrer" class="content">
         <div class="title is-6">
           <span>{{ pr.title }}</span>
           <div class="checks">
