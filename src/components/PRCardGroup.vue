@@ -38,7 +38,7 @@ export default defineComponent({
   background-color: $light;
   border-radius: 2%;
   min-height: '100%';
-  overflow: scroll;
+  overflow: auto;
 
   .title {
     padding: 10px;
