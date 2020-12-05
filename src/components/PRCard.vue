@@ -68,7 +68,6 @@ export default defineComponent({
   .card-content {
     .title {
       margin: 0;
-      overflow: scroll;
     }
     .checks {
       display: inline;
