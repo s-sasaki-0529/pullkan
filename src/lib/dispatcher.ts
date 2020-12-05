@@ -45,9 +45,6 @@ async function dispatchCallPullRequests(): Promise<PR[]> {
       node.reviewRequests.edges
         .map(e => {
           const reviewer = e.node.requestedReviewer
-          if (reviewer.members) {
-            console.log(reviewer.members.nodes)
-          }
           return reviewer.members
             ? reviewer.members.nodes.map(member => new User(member.id, member.login, member.avatarUrl))
             : [new User(reviewer.id, reviewer.login || '', reviewer.avatarUrl || '')]
