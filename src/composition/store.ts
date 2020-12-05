@@ -57,7 +57,7 @@ export const createStore = () => {
 
     pullRequests.forEach(pr => {
       // 自身のPR一覧
-      if (pr.isOwnedBy(state.currentUser!)) {
+      if (pr.isOwnedBy(state.currentUser)) {
         organizedPRs.own.push(pr)
         return
       }
@@ -75,7 +75,7 @@ export const createStore = () => {
       // レビューリクエストが来ていないPRが残るので、
       // 自身のレビュー履歴を元に分類する。
       // リクエストも来てない、レビューもしていないPRは関係ないPRなので捨てる
-      const latestReviewStatus = state.currentUser?.latestReviewStatus(pr)
+      const latestReviewStatus = state.currentUser.latestReviewStatus(pr)
       if (latestReviewStatus === null) {
         return
       } else if (latestReviewStatus === 'APPROVED') {
