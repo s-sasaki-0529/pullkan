@@ -16,9 +16,10 @@
       <a :href="pr.url" target="_blanl" rel="noreferrer" class="content">
         <div class="title is-6">
           <span>{{ pr.title }}</span>
-          <div class="checks">
-            <span class="check" :key="i" v-for="i in approvedCount">✔</span>
-          </div>
+        </div>
+        <div v-if="approvers.size" class="approvers">
+          <span class="check">approved by </span>
+          <img class="user-icon" width="16" height="16" :src="approver.avatarUrl" :key="approver.id" v-for="approver in approvers"/>
         </div>
         <div v-if="pr.labels" class="tags">
           <span
@@ -48,7 +49,7 @@ export default defineComponent({
   },
   setup(props) {
     return {
-      approvedCount: computed(() => props.pr.calcApprovedCount())
+      approvers: computed(() => props.pr.approvers())
     }
   }
 })
@@ -69,15 +70,22 @@ export default defineComponent({
     .title {
       margin: 0;
     }
-    .checks {
+    .approvers {
+      color: green;
       display: inline;
-      padding-left: 10px;
-      .check {
-        color: green;
+      vertical-align: middle;
+      margin-bottom: 10px;
+      .user-icon {
+        vertical-align: middle;
+        border-radius: 50%;
       }
     }
     .tags {
       padding-top: 15px;
+      margin: 0;
+      .tag {
+        padding: 5px;
+      }
     }
   }
 }

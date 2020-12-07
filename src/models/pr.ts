@@ -39,23 +39,21 @@ export class PR {
     return this.author.id === user.id
   }
 
-  /**
-   * Approveがいくつついた状態か計算する
-   * NOTE: GraphQLの力でもっとスマートに解決できる気がする…。
-   *       ロジック集中しちゃってるからもう少し整理したい
-   * FIXME: PR主がコミットを追加せずに再レビュー依頼すると壊れる
-   */
-  calcApprovedCount(): Number {
-    const approvedUserIds = new Set<string>()
+  approvers() {
+    const approvers = new Set<User>()
 
     this.reviewList.reviews.forEach(review => {
       if (review.state === 'APPROVED') {
-        approvedUserIds.add(review.user.id)
+        approvers.add(review.user)
       } else if (review.state === 'DISMISSED' || review.state === 'CHANGES_REQUESTED') {
-        approvedUserIds.delete(review.user.id)
+        approvers.delete(review.user)
       }
     })
 
-    return approvedUserIds.size
+    return approvers
+  }
+
+  approvedCount() {
+    return this.approvers().size
   }
 }
