@@ -17,4 +17,6 @@ Open [localhost:8080](http://localhost:8080/)
 $ yarn deploy
 ```
 
+...or automatically deployed by GithubActions when the master branch is updated.
+
 Open [https://pullkan.firebaseapp.com/](https://pullkan.firebaseapp.com/)
