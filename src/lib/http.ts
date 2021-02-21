@@ -7,6 +7,28 @@ import { REVIEW_STATUS } from './constants'
 
 // FIXME: 手動で管理するものじゃない気がする
 // https://github.com/octokit/graphql-schema
+type CurrentUserResponseType = {
+  data: {
+    viewer: {
+      id: string
+      login: string
+      avatarUrl: string
+      repositoriesContributedTo: {
+        nodes: {
+          id: string
+          name: string
+          owner: {
+            id: string
+            login: string
+          }
+        }[]
+      }
+    }
+  }
+}
+
+// FIXME: 手動で管理するものじゃない気がする
+// https://github.com/octokit/graphql-schema
 type PullRequestsResponseType = {
   data: {
     repository: {
@@ -96,7 +118,7 @@ async function callGithubAPI(query: String) {
     })
 }
 
-function callCurrentUser() {
+function callCurrentUser(): Promise<CurrentUserResponseType> {
   return callGithubAPI(`
   {
     viewer {
