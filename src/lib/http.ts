@@ -2,7 +2,7 @@
  * GithubAPIを直接叩くモジュール
  */
 import axios from 'axios'
-import { loadGitHubToken } from '@/lib/authentication'
+import { loadGitHubToken, deleteUser } from '@/lib/authentication'
 import { REVIEW_STATUS } from './constants'
 
 // FIXME: 手動で管理するものじゃない気がする
@@ -87,7 +87,13 @@ async function callGithubAPI(query: String) {
     data: {
       query
     }
-  }).then(res => res.data)
+  })
+    .then(res => res.data)
+    .catch(_ => {
+      deleteUser().then(() => {
+        alert('認証エラーが発生しました')
+      })
+    })
 }
 
 function callCurrentUser() {

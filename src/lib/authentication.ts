@@ -24,7 +24,7 @@ const USERS_REF = firebase.firestore().collection('users')
 /**
  * ログイン中ユーザのAPIトークンを取得する
  */
-async function loadGitHubToken() {
+export async function loadGitHubToken(): Promise<string | null> {
   const user = firebase.auth().currentUser
   if (!user) return Promise.reject()
 
@@ -34,14 +34,23 @@ async function loadGitHubToken() {
 }
 
 /**
- * ログイン中ユーザのAPIトークンを永続化する
+ * ユーザー情報を破棄する
+ * トークンが無効化した場合などに使用し、整合性を担保する
  */
-function saveGitHubToken(uid: string, token: string) {
-  return USERS_REF.doc(uid).set({ token })
+export async function deleteUser(): Promise<void> {
+  const user = firebase.auth().currentUser
+  if (!user) return Promise.reject()
+
+  await firebase.auth().signOut()
+  return USERS_REF.doc(user.uid).delete()
 }
 
-async function authenticate() {
-  return new Promise(resolve => {
+/**
+ * ユーザー認証を行う
+ * 未登録ユーザだった場合、GitHub認証を誘導し、許可が降りた場合に Firebase にトークンを紐付ける
+ */
+export async function authenticate() {
+  return new Promise<void>(resolve => {
     firebase.auth().onAuthStateChanged(async user => {
       if (user) {
         resolve()
@@ -56,12 +65,11 @@ async function authenticate() {
             const token = credential?.accessToken
             const uid = result.user?.uid
             if (uid && token) {
-              return saveGitHubToken(uid, token)
+              USERS_REF.doc(uid).set({ token })
+              resolve()
             }
           })
       }
     })
   })
 }
-
-export { authenticate, loadGitHubToken }
