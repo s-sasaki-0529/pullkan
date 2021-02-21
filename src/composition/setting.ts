@@ -2,6 +2,14 @@ import { inject, provide, reactive } from 'vue'
 
 export const key = Symbol()
 
+export const provideSetting = () => {
+  return provide(key, createSetting())
+}
+
+export const useSetting = () => {
+  return inject(key) as Store
+}
+
 export type Setting = {
   ignoreWipPRs: Boolean
 }
@@ -31,12 +39,4 @@ export const createSetting = () => {
   }
 
   return { state, save, load }
-}
-
-export const provideSetting = () => {
-  return provide(key, createSetting())
-}
-
-export const useSetting = () => {
-  return inject(key) as Store
 }

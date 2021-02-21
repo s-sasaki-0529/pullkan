@@ -7,6 +7,14 @@ import { Setting } from './setting'
 
 export const key = Symbol()
 
+export const provideStore = () => {
+  return provide(key, createStore())
+}
+
+export const useStore = () => {
+  return inject(key) as Store
+}
+
 export type State = {
   onLoading: Boolean
   currentUser: CurrentUser
@@ -88,12 +96,4 @@ export const createStore = () => {
   }
 
   return { state, reload } as Store
-}
-
-export const provideStore = () => {
-  return provide(key, createStore())
-}
-
-export const useStore = () => {
-  return inject(key) as Store
 }
