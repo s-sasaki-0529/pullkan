@@ -2,16 +2,16 @@
 
 WIP
 
-# Install and Development
+## Install and Development
 
 ```
 $ yarn install
 $ yarn start
 ```
 
-Open [localhost:8080](localhost:8080/)
+Open [localhost:8080](http://localhost:8080/)
 
-# Deploy to firebase
+## Deploy to firebase
 
 ```
 $ yarn deploy
