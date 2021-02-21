@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 import { loadGitHubToken, deleteUser } from '@/lib/authentication'
-import { REVIEW_STATUS } from './constants'
+import { REVIEW_STATUS } from './types'
 
 // FIXME: 手動で管理するものじゃない気がする
 // https://github.com/octokit/graphql-schema

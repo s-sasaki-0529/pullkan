@@ -1,5 +1,3 @@
-// TODO: constantsでなくtypesかな
-
 import { PR } from '@/models/pr'
 
 export type ORGANIZED_PULL_REQUESTS = {

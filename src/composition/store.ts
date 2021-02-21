@@ -2,7 +2,7 @@ import { PR } from '@/models/pr'
 import CurrentUser from '@/models/currentUser'
 import { inject, provide, reactive } from 'vue'
 import { dispatch } from '@/lib/dispatcher'
-import { ORGANIZED_PULL_REQUESTS } from '@/lib/constants'
+import { ORGANIZED_PULL_REQUESTS } from '@/lib/types'
 import { Setting } from './setting'
 
 export const key = Symbol()
