@@ -43,7 +43,7 @@ export const createStore = () => {
     if (state.onLoading) return
     state.onLoading = true
 
-    dispatch()
+    dispatch(setting)
       .then(response => {
         state.currentUser = response.currentUser
         state.pullRequests = organizePRs(response.pullRequests, setting.ignoreWipPRs)

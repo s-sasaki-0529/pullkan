@@ -9,6 +9,7 @@ import { PR } from '@/models/pr'
 import { Label } from '@/models/label'
 import Repository from '@/models/repository'
 import CurrentUser from '@/models/currentUser'
+import { Setting } from '@/composition/setting'
 
 async function dispatchCallCurrentUser() {
   const apiResponse = await callCurrentUser()
@@ -63,10 +64,12 @@ async function dispatchCallPullRequests(organization: string, repoName: string):
   })
 }
 
-async function dispatch() {
+async function dispatch(setting: Setting) {
   // FIXME: currentUser は初回のみリクエストすれば充分なはず
   const currentUser = await dispatchCallCurrentUser()
-  const pullRequests = await dispatchCallPullRequests('StudistCorporation', 'teachme_web_duvel')
+
+  const pullRequestPromises = setting.repositories.map(r => dispatchCallPullRequests(r.ownerId, r.name))
+  const pullRequests = await Promise.all(pullRequestPromises).then(allPullRequests => allPullRequests.flat())
   return { currentUser, pullRequests }
 }
 
