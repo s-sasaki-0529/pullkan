@@ -8,7 +8,10 @@
           </figure>
         </div>
         <div class="media-content">
-          <span class="title is-6">{{ pr.author.name }}</span>
+          <div class="title is-6">
+            <div>{{ pr.author.name }}</div>
+            <a class="repository-link" :href="repository.url">{{ repository.name }}</a>
+          </div>
         </div>
       </div>
     </header>
@@ -19,7 +22,14 @@
         </div>
         <div v-if="approvers.size" class="approvers">
           <span class="check">approved by </span>
-          <img class="user-icon" width="16" height="16" :src="approver.avatarUrl" :key="approver.id" v-for="approver in approvers"/>
+          <img
+            class="user-icon"
+            width="16"
+            height="16"
+            :src="approver.avatarUrl"
+            :key="approver.id"
+            v-for="approver in approvers"
+          />
         </div>
         <div v-if="pr.labels" class="tags">
           <span
@@ -49,6 +59,7 @@ export default defineComponent({
   },
   setup(props) {
     return {
+      repository: computed(() => props.pr.repository),
       approvers: computed(() => props.pr.approvers())
     }
   }

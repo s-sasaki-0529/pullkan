@@ -1,12 +1,14 @@
 import { User } from '@/models/user'
 import { Label } from '@/models/label'
 import { ReviewList } from '@/models/reviewList'
+import Repository from './repository'
 
 export class PR {
   constructor(
     public id: string,
     public title: string,
     public url: string,
+    public repository: Repository,
     public author: User,
     public lastCommitDate: Date,
     public labels: Label[],

@@ -28,8 +28,8 @@ async function dispatchCallCurrentUser() {
  * PR一覧をAPI経由で取得し、レスポンスを解析してモデルに置き換える
  * モデルにはオーナー、レビューリクエストに限らず全てのPRが入るので注意
  */
-async function dispatchCallPullRequests(organization: string, repoName: string): Promise<PR[]> {
-  const apiResponse = await callPullRequests(organization, repoName)
+async function dispatchCallPullRequests(repository: Repository): Promise<PR[]> {
+  const apiResponse = await callPullRequests(repository.ownerId, repository.name)
   const rawPullRequests = apiResponse.data.repository.pullRequests.edges
 
   return rawPullRequests.map(r => {
@@ -38,6 +38,7 @@ async function dispatchCallPullRequests(organization: string, repoName: string):
       node.id,
       node.title,
       node.url,
+      repository,
       new User(node.author.id || 'no-user', node.author.login || 'no-user', node.author.avatarUrl || ''),
       new Date(node.commits.nodes[0].commit.committedDate),
       node.labels.nodes.map(l => {
@@ -68,7 +69,7 @@ async function dispatch(setting: Setting) {
   // FIXME: currentUser は初回のみリクエストすれば充分なはず
   const currentUser = await dispatchCallCurrentUser()
 
-  const pullRequestPromises = setting.repositories.map(r => dispatchCallPullRequests(r.ownerId, r.name))
+  const pullRequestPromises = setting.repositories.map(r => dispatchCallPullRequests(r))
   const pullRequests = await Promise.all(pullRequestPromises).then(allPullRequests => allPullRequests.flat())
   return { currentUser, pullRequests }
 }
