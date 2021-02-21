@@ -1,6 +1,8 @@
 # PullKan
 
-WIP
+Pullkan is a Vue 3 application that manages pull requests across multiple repositories.
+
+![screenshot](https://user-images.githubusercontent.com/16274215/108626920-06a00980-7496-11eb-8e14-e412c3962469.png)
 
 ## Install and Development
 
