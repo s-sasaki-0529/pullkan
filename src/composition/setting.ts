@@ -1,3 +1,4 @@
+import Repository from '@/models/repository'
 import { inject, provide, reactive } from 'vue'
 
 export const key = Symbol()
@@ -12,6 +13,7 @@ export const useSetting = () => {
 
 export type Setting = {
   ignoreWipPRs: Boolean
+  repositories: Repository[]
 }
 
 export type Store = {
@@ -22,11 +24,13 @@ export type Store = {
 
 export const createSetting = () => {
   const state = reactive({
-    ignoreWipPRs: true
+    ignoreWipPRs: true,
+    repositories: []
   } as Setting)
 
   const save = (setting: Setting) => {
     state.ignoreWipPRs = setting.ignoreWipPRs
+    state.repositories = setting.repositories
     localStorage.setItem('setting', JSON.stringify(setting))
   }
 
@@ -35,6 +39,7 @@ export const createSetting = () => {
     if (rawSetting) {
       const parsedSetting = JSON.parse(rawSetting) as Setting
       state.ignoreWipPRs = parsedSetting.ignoreWipPRs
+      state.repositories = parsedSetting.repositories.map(r => new Repository(r.id, r.ownerId, r.name))
     }
   }
 

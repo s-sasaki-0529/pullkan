@@ -27,8 +27,9 @@
             <label class="label">Repositories</label>
           </div>
           <div class="column">
+            <p class="repository-selection-message">{{ repositorySelectionMessage }}</p>
             <div class="select-repository select is-multiple">
-              <select multiple size="5">
+              <select v-model="state.repositories" multiple size="5">
                 <option
                   v-for="repository in store.state.currentUser?.repositories"
                   :key="repository.id"
@@ -50,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, reactive } from 'vue'
+import { PropType, defineComponent, reactive, computed } from 'vue'
 import { useStore } from '@/composition/store'
 import { Setting, useSetting } from '@/composition/setting'
 
@@ -65,7 +66,8 @@ export default defineComponent({
     const store = useStore()
     const setting = useSetting()
     const state = reactive({
-      ignoreWipPRs: setting.state.ignoreWipPRs
+      ignoreWipPRs: setting.state.ignoreWipPRs,
+      repositories: setting.state.repositories
     } as Setting)
 
     const save = () => {
@@ -73,12 +75,26 @@ export default defineComponent({
       store.reload(state)
       props.onClose()
     }
-    return { store, state, props, save }
+
+    const repositorySelectionMessage = computed(() => {
+      switch (state.repositories.length) {
+        case 0:
+          return 'No repository is selected.'
+        case 1:
+          return '1 repository selected'
+        default:
+          return `${state.repositories.length} repositories is selected.`
+      }
+    })
+    return { store, state, props, save, repositorySelectionMessage }
   }
 })
 </script>
 
 <style lang="scss" scoped>
+.repository-selection-message {
+  margin-bottom: 10px;
+}
 .select-repository {
   width: 100%;
   select {
