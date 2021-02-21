@@ -146,9 +146,7 @@ function callCurrentUser(): Promise<CurrentUserResponseType> {
   `)
 }
 
-function callPullRequests(): Promise<PullRequestsResponseType> {
-  const organization = 'StudistCorporation'
-  const repoName = 'teachme_web_duvel'
+function callPullRequests(organization: string, repoName: string): Promise<PullRequestsResponseType> {
   return callGithubAPI(`
   {
     repository(owner: "${organization}", name: "${repoName}") {

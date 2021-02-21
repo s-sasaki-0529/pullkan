@@ -27,8 +27,8 @@ async function dispatchCallCurrentUser() {
  * PR一覧をAPI経由で取得し、レスポンスを解析してモデルに置き換える
  * モデルにはオーナー、レビューリクエストに限らず全てのPRが入るので注意
  */
-async function dispatchCallPullRequests(): Promise<PR[]> {
-  const apiResponse = await callPullRequests()
+async function dispatchCallPullRequests(organization: string, repoName: string): Promise<PR[]> {
+  const apiResponse = await callPullRequests(organization, repoName)
   const rawPullRequests = apiResponse.data.repository.pullRequests.edges
 
   return rawPullRequests.map(r => {
@@ -64,10 +64,9 @@ async function dispatchCallPullRequests(): Promise<PR[]> {
 }
 
 async function dispatch() {
-  const [currentUser, pullRequests] = await Promise.all([
-    dispatchCallCurrentUser(),
-    dispatchCallPullRequests()
-  ])
+  // FIXME: currentUser は初回のみリクエストすれば充分なはず
+  const currentUser = await dispatchCallCurrentUser()
+  const pullRequests = await dispatchCallPullRequests('StudistCorporation', 'teachme_web_duvel')
   return { currentUser, pullRequests }
 }
 
