@@ -46,30 +46,33 @@ export async function deleteUser(): Promise<void> {
 }
 
 /**
- * ユーザー認証を行う
- * 未登録ユーザだった場合、GitHub認証を誘導し、許可が降りた場合に Firebase にトークンを紐付ける
+ * Firebase での認証を試みる
  */
-export async function authenticate() {
-  return new Promise<void>(resolve => {
+export async function tryAuth() {
+  return new Promise<void>((resolve, reject) => {
     firebase.auth().onAuthStateChanged(async user => {
-      if (user) {
-        resolve()
-      } else {
-        const provider = new firebase.auth.GithubAuthProvider()
-        provider.addScope('repo, user, read:org')
-        firebase
-          .auth()
-          .signInWithPopup(provider)
-          .then(result => {
-            const credential = result.credential as any
-            const token = credential?.accessToken
-            const uid = result.user?.uid
-            if (uid && token) {
-              USERS_REF.doc(uid).set({ token })
-              resolve()
-            }
-          })
-      }
+      user ? resolve() : reject()
     })
   })
+}
+
+/**
+ * GitHub での新規認証をポップアップで要求する
+ */
+export async function signInWithGitHub() {
+  const provider = new firebase.auth.GithubAuthProvider()
+  provider.addScope('repo, user, read:org')
+  return firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(result => {
+      const credential = result.credential as any
+      const token = credential?.accessToken
+      const uid = result.user?.uid
+      if (uid && token) {
+        return USERS_REF.doc(uid).set({ token })
+      } else {
+        return Promise.reject()
+      }
+    })
 }

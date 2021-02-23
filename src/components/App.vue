@@ -1,16 +1,21 @@
 <template>
-  <div v-if="state.ready" class="app">
+  <div class="app" v-if="state.authState === 'success'">
     <Header />
     <Board />
   </div>
-  <div v-else>
-    authenticating...
+  <div class="on-error" v-else-if="state.authState === 'error'">
+    <button @click="signIn" class="button is-rounded">
+      <span class="icon">
+        <i class="fab fa-github"></i>
+      </span>
+      <span>Sign in with GitHub</span>
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import { authenticate } from '@/lib/authentication'
+import { defineComponent, reactive, watch } from 'vue'
+import { tryAuth, signInWithGitHub } from '@/lib/authentication'
 import { provideStore, useStore } from '@/composition/store'
 import { provideSetting, useSetting } from '@/composition/setting'
 import Header from './Header.vue'
@@ -26,17 +31,31 @@ export default defineComponent({
     provideStore()
     provideSetting()
 
-    const state = reactive({ ready: false })
+    const state = reactive<{ authState: 'success' | 'error' | 'doing' }>({ authState: 'doing' })
     const store = useStore()
     const setting = useSetting()
 
-    authenticate().then(() => {
-      state.ready = true
-      setting.load()
-      store.reload(setting.state)
-    })
+    watch(
+      () => state.authState,
+      newStatus => {
+        if (newStatus === 'success') {
+          setting.load()
+          store.reload(setting.state)
+        }
+      }
+    )
 
-    return { state }
+    tryAuth()
+      .then(() => (state.authState = 'success'))
+      .catch(() => (state.authState = 'error'))
+
+    const signIn = () => {
+      signInWithGitHub().then(() => {
+        location.href = '/'
+      })
+    }
+
+    return { state, signIn }
   }
 })
 </script>
