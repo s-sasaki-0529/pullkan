@@ -27,7 +27,9 @@
             <label class="label">Repositories</label>
           </div>
           <div class="column">
-            <p class="repository-selection-message">{{ repositorySelectionMessage }}</p>
+            <p class="repository-selection-message" :class="{ error: isNotRepositorySelected }">
+              {{ repositorySelectionMessage }}
+            </p>
             <div class="select-repository select is-multiple">
               <select v-model="state.repositories" multiple size="5">
                 <option
@@ -43,8 +45,8 @@
         </div>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-success" @click="save">Save</button>
-        <button class="button" @click="props.onClose">Cancel</button>
+        <button v-text="'Save'" class="button is-success" :disabled="isNotRepositorySelected" @click="save" />
+        <button v-text="'Cancel'" class="button" @click="props.onClose" />
       </footer>
     </div>
   </div>
@@ -76,17 +78,20 @@ export default defineComponent({
       props.onClose()
     }
 
+    const isNotRepositorySelected = computed(() => state.repositories.length === 0)
+
     const repositorySelectionMessage = computed(() => {
       switch (state.repositories.length) {
         case 0:
-          return 'No repository is selected.'
+          return 'Please select at least one repository.'
         case 1:
           return '1 repository selected'
         default:
           return `${state.repositories.length} repositories is selected.`
       }
     })
-    return { store, state, props, save, repositorySelectionMessage }
+
+    return { store, state, props, save, isNotRepositorySelected, repositorySelectionMessage }
   }
 })
 </script>
@@ -94,6 +99,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .repository-selection-message {
   margin-bottom: 10px;
+  &.error {
+    color: red;
+  }
 }
 .select-repository {
   width: 100%;

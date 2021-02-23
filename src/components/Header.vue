@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from 'vue'
+import { ref, defineComponent, computed, watch } from 'vue'
 import { useStore } from '@/composition/store'
 import { useSetting } from '@/composition/setting'
 import SettingModal from '@/components/SettingModal.vue'
@@ -33,6 +33,17 @@ export default defineComponent({
     const reload = () => store.reload(setting.state)
     const showConfigModal = () => (isShowSettingModal.value = true)
     const currentUser = computed(() => store.state.currentUser)
+
+    // リポジトリ設定が一つもない場合は自動で設定モーダルを開いて誘導する
+    watch(
+      () => store.state.currentUser,
+      v => {
+        if (v && setting.state.repositories.length === 0) {
+          showConfigModal()
+        }
+      }
+    )
+
     return {
       store,
       currentUser,
