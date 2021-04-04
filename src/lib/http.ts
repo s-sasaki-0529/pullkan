@@ -111,10 +111,9 @@ async function callGithubAPI(query: String) {
     }
   })
     .then(res => res.data)
-    .catch(_ => {
-      deleteUser().then(() => {
-        alert('認証エラーが発生しました')
-      })
+    .catch(async () => {
+      await deleteUser()
+      location.href = '/'
     })
 }
 

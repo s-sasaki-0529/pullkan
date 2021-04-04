@@ -41,8 +41,10 @@ export async function deleteUser(): Promise<void> {
   const user = firebase.auth().currentUser
   if (!user) return Promise.reject()
 
+  await USERS_REF.doc(user.uid).delete()
   await firebase.auth().signOut()
-  return USERS_REF.doc(user.uid).delete()
+
+  return Promise.resolve()
 }
 
 /**
