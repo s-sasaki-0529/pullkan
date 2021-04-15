@@ -13,6 +13,9 @@
             <a class="repository-link" :href="repository.url">{{ repository.name }}</a>
           </div>
         </div>
+        <div v-if="pr.isDraft" class="draft-tag">
+          <span class="tag">Draft</span>
+        </div>
       </div>
     </header>
     <div class="card-content">
@@ -71,7 +74,14 @@ export default defineComponent({
   .card-header {
     padding: 15px;
     .media {
+      width: 100%;
       align-items: center;
+      .draft-tag {
+        .tag {
+          background-color: gray;
+          color: white;
+        }
+      }
       .image {
         margin: 0;
       }

@@ -60,7 +60,8 @@ async function dispatchCallPullRequests(repository: Repository): Promise<PR[]> {
             new Date(e.node.createdAt)
           )
         })
-      )
+      ),
+      node.isDraft
     )
   })
 }

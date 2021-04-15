@@ -13,7 +13,8 @@ export class PR {
     public lastCommitDate: Date,
     public labels: Label[],
     public requestedReviewers: User[],
-    public reviewList: ReviewList
+    public reviewList: ReviewList,
+    public isDraft: Boolean
   ) {}
 
   /**

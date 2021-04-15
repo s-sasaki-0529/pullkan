@@ -90,6 +90,7 @@ type PullRequestsResponseType = {
                 color: string
               }[]
             }
+            isDraft: Boolean
           }
         }[]
       }
@@ -217,6 +218,7 @@ function callPullRequests(organization: string, repoName: string): Promise<PullR
                 color
               }
             }
+            isDraft
           }
         }
       }
