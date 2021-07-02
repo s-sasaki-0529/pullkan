@@ -29,13 +29,6 @@ export class PR {
   }
 
   /**
-   * WIPラベルが付与されているか
-   */
-  isWIP() {
-    return this.labels.some(label => label.name === 'WIP')
-  }
-
-  /**
    * 指定したユーザがPRの所有者であるか
    */
   isOwnedBy(user: User) {

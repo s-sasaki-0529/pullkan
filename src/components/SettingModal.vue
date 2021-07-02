@@ -7,21 +7,6 @@
         <button class="delete" aria-label="close" @click="props.onClose" />
       </header>
       <section class="modal-card-body">
-        <div class="columns hide-wip-setting">
-          <div class="column is-3">
-            <label class="label">Ignore WIP PRs</label>
-          </div>
-          <div class="column">
-            <div class="control">
-              <label class="radio">
-                <input type="radio" v-model="state.ignoreWipPRs" :value="true" /> Yes
-              </label>
-              <label class="radio">
-                <input type="radio" v-model="state.ignoreWipPRs" :value="false" /> No
-              </label>
-            </div>
-          </div>
-        </div>
         <div class="columns repositories-setting">
           <div class="column is-3">
             <label class="label">Repositories</label>
@@ -68,7 +53,6 @@ export default defineComponent({
     const store = useStore()
     const setting = useSetting()
     const state = reactive({
-      ignoreWipPRs: setting.state.ignoreWipPRs,
       repositories: setting.state.repositories
     } as Setting)
 

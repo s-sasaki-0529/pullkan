@@ -46,7 +46,7 @@ export const createStore = () => {
     dispatch(setting)
       .then(response => {
         state.currentUser = response.currentUser
-        state.pullRequests = organizePRs(response.pullRequests, setting.ignoreWipPRs)
+        state.pullRequests = organizePRs(response.pullRequests)
       })
       .finally(() => {
         state.onLoading = false
@@ -55,7 +55,7 @@ export const createStore = () => {
 
   // PR一覧を所有/レビュー待ち/レビュー済み/承認済みに分類する
   // FIXME: createStore関数内に定義するのは微妙かも
-  const organizePRs = (pullRequests: PR[], ignoreWipPRs: Boolean) => {
+  const organizePRs = (pullRequests: PR[]) => {
     const organizedPRs = {
       own: [],
       requested: [],
@@ -67,11 +67,6 @@ export const createStore = () => {
       // 自身のPR一覧
       if (pr.isOwnedBy(state.currentUser)) {
         organizedPRs.own.push(pr)
-        return
-      }
-      // WIP除外設定の場合、WIPはここで捕捉する
-      // 自身のPRのみWIPでも表示するため、分岐の順番が重要
-      if (ignoreWipPRs && pr.isWIP()) {
         return
       }
       // レビューリクエストが来ているPR一覧

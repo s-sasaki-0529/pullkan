@@ -12,7 +12,6 @@ export const useSetting = () => {
 }
 
 export type Setting = {
-  ignoreWipPRs: Boolean
   repositories: Repository[]
 }
 
@@ -24,12 +23,10 @@ export type Store = {
 
 export const createSetting = () => {
   const state = reactive({
-    ignoreWipPRs: true,
     repositories: []
   } as Setting)
 
   const save = (setting: Setting) => {
-    state.ignoreWipPRs = setting.ignoreWipPRs
     state.repositories = setting.repositories
     localStorage.setItem('setting', JSON.stringify(setting))
   }
@@ -38,7 +35,6 @@ export const createSetting = () => {
     const rawSetting = localStorage.getItem('setting')
     if (rawSetting) {
       const parsedSetting = JSON.parse(rawSetting) as Setting
-      state.ignoreWipPRs = parsedSetting.ignoreWipPRs
       state.repositories = parsedSetting.repositories.map(r => new Repository(r.id, r.ownerId, r.name))
     }
   }
