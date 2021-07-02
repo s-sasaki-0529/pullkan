@@ -37,7 +37,7 @@ export default defineComponent({
   methods: {
     isShowablePR(pr: PR): boolean {
       if (this.showDraft && pr.isDraft) return true
-      if (this.showWIP && pr.isWIP) return true
+      if (this.showWIP && pr.isWIP()) return true
       return pr.isReady()
     }
   }
