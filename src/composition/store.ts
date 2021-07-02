@@ -2,7 +2,7 @@ import { PR } from '@/models/pr'
 import CurrentUser from '@/models/currentUser'
 import { inject, provide, reactive } from 'vue'
 import { dispatch } from '@/lib/dispatcher'
-import { ORGANIZED_PULL_REQUESTS } from '@/lib/types'
+import { OrganizedPullRequests } from '@/lib/types'
 import { Setting } from './setting'
 
 export const key = Symbol()
@@ -18,7 +18,7 @@ export const useStore = () => {
 export type State = {
   onLoading: Boolean
   currentUser: CurrentUser
-  pullRequests: ORGANIZED_PULL_REQUESTS
+  pullRequests: OrganizedPullRequests
 }
 
 export type Store = {
@@ -26,7 +26,7 @@ export type Store = {
   reload: (setting: Setting) => void
 }
 
-export const createStore = () => {
+export const createStore = (): Store => {
   const state = reactive({
     onLoading: false,
     currentUser: CurrentUser.NullObject(),
@@ -55,13 +55,13 @@ export const createStore = () => {
 
   // PR一覧を所有/レビュー待ち/レビュー済み/承認済みに分類する
   // FIXME: createStore関数内に定義するのは微妙かも
-  const organizePRs = (pullRequests: PR[]) => {
+  const organizePRs = (pullRequests: PR[]): OrganizedPullRequests => {
     const organizedPRs = {
       own: [],
       requested: [],
       inReview: [],
       approved: []
-    } as ORGANIZED_PULL_REQUESTS
+    } as OrganizedPullRequests
 
     pullRequests.forEach(pr => {
       // 自身のPR一覧
@@ -90,5 +90,5 @@ export const createStore = () => {
     return organizedPRs
   }
 
-  return { state, reload } as Store
+  return { state, reload }
 }

@@ -1,5 +1,5 @@
 import { PR } from '@/models/pr'
-import { REVIEW_STATUS } from '@/lib/types'
+import { ReviewStatus } from '@/lib/types'
 
 export class User {
   constructor(public id: string, public name: string, public avatarUrl: string) {}
@@ -14,7 +14,7 @@ export class User {
   /**
    * 対象PRに対する最終的なレビューステータス
    */
-  latestReviewStatus(pr: PR): REVIEW_STATUS | null {
+  latestReviewStatus(pr: PR): ReviewStatus | null {
     // 対象PRから自身のレビューステータス一覧を取得
     const reviewList = pr.reviewList.byUser(this)
     const stateList = reviewList.reviews.map(r => r.state)

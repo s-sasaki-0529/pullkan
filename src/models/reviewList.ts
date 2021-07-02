@@ -1,6 +1,6 @@
 import { Review } from '@/models/review'
 import { User } from '@/models/user'
-import { REVIEW_STATUS } from '@/lib/types'
+import { ReviewStatus } from '@/lib/types'
 
 export class ReviewList {
   public length: number
@@ -19,7 +19,7 @@ export class ReviewList {
   /**
    * ステータスで絞り込む
    */
-  byState(state: REVIEW_STATUS) {
+  byState(state: ReviewStatus) {
     return new ReviewList(this.reviews.filter(r => r.state === state))
   }
 

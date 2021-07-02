@@ -1,6 +1,6 @@
 import { User } from '@/models/user'
-import { REVIEW_STATUS } from '@/lib/types'
+import { ReviewStatus } from '@/lib/types'
 
 export class Review {
-  constructor(public user: User, public state: REVIEW_STATUS, public createdAt: Date) {}
+  constructor(public user: User, public state: ReviewStatus, public createdAt: Date) {}
 }

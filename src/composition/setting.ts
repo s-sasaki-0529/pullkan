@@ -22,9 +22,7 @@ export type Store = {
 }
 
 export const createSetting = () => {
-  const state = reactive({
-    repositories: []
-  } as Setting)
+  const state = reactive<Setting>({ repositories: [] })
 
   const save = (setting: Setting) => {
     state.repositories = setting.repositories

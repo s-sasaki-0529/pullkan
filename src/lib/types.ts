@@ -1,10 +1,10 @@
 import { PR } from '@/models/pr'
 
-export type ORGANIZED_PULL_REQUESTS = {
+export type OrganizedPullRequests = {
   own: PR[]
   requested: PR[]
   inReview: PR[]
   approved: PR[]
 }
 
-export type REVIEW_STATUS = 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'DISMISSED' | 'PENDING'
+export type ReviewStatus = 'APPROVED' | 'CHANGES_REQUESTED' | 'COMMENTED' | 'DISMISSED' | 'PENDING'
