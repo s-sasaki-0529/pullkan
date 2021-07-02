@@ -1,5 +1,5 @@
 <template>
-  <div class="pullkan" v-if="state.authState === 'success'">
+  <div class="pullkan" v-if="store.state.currentUser.name">
     <Header />
     <Board />
   </div>
@@ -10,6 +10,12 @@
       </span>
       <span>Sign in with GitHub</span>
     </button>
+  </div>
+  <div class="on-auth" v-else-if="state.authState === 'doing'">
+    ...authenticating
+  </div>
+  <div class="on-loading" v-else>
+    ...loading
   </div>
 </template>
 
@@ -52,7 +58,7 @@ export default defineComponent({
       })
     }
 
-    return { state, signIn }
+    return { state, store, signIn }
   }
 })
 </script>
