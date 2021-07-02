@@ -35,6 +35,20 @@ export class PR {
     return this.author.id === user.id
   }
 
+  /**
+   * WIPラベルが付与されているか
+   */
+  isWIP() {
+    return this.labels.some(label => label.name === 'WIP')
+  }
+
+  /**
+   * レビュー可能状態か(WIPでもDraftでもないか)
+   */
+  isReady() {
+    return !this.isDraft && !this.isWIP()
+  }
+
   approvers() {
     const approvers = new Set<User>()
 

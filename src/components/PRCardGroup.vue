@@ -7,8 +7,10 @@
       {{ title }}
     </div>
     <div class="card-group-body">
-      <div class="pr-card-wrapper" :key="pr.id" v-for="pr in pullRequests">
-        <PRCard :pr="pr" />
+      <div :key="pr.id" v-for="pr in pullRequests">
+        <div v-if="isShowablePR(pr)" class="pr-card-wrapper">
+          <PRCard :pr="pr" />
+        </div>
       </div>
     </div>
   </div>
@@ -22,6 +24,8 @@ import PRCard from './PRCard.vue'
 export default defineComponent({
   props: {
     title: String,
+    showWIP: Boolean,
+    showDraft: Boolean,
     pullRequests: {
       type: Array as PropType<PR[]>,
       required: true
@@ -29,6 +33,13 @@ export default defineComponent({
   },
   components: {
     PRCard
+  },
+  methods: {
+    isShowablePR(pr: PR): boolean {
+      if (this.showDraft && pr.isDraft) return true
+      if (this.showWIP && pr.isWIP) return true
+      return pr.isReady()
+    }
   }
 })
 </script>

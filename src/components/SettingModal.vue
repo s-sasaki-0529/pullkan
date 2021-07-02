@@ -57,7 +57,8 @@ export default defineComponent({
     } as Setting)
 
     const save = () => {
-      setting.save(state)
+      setting.state.repositories = state.repositories
+      setting.save()
       store.reload(state)
       props.onClose()
     }

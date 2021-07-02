@@ -3,16 +3,32 @@
     <div class="content">
       <div class="columns g-full-height">
         <div class="column is-3 g-full-height">
-          <PRCardGroup title="Requested" :pullRequests="store.state.pullRequests.requested" />
+          <PRCardGroup
+            title="Requested"
+            :pullRequests="store.state.pullRequests.requested"
+            :showWIP="setting.state.showWIP"
+            :showDraft="setting.state.showDraft"
+          />
         </div>
         <div class="column is-3 g-full-height">
-          <PRCardGroup title="In review" :pullRequests="store.state.pullRequests.inReview" />
+          <PRCardGroup
+            title="In review"
+            :pullRequests="store.state.pullRequests.inReview"
+            :showWIP="setting.state.showWIP"
+            :showDraft="setting.state.showDraft"
+          />
         </div>
         <div class="column is-3 g-full-height">
-          <PRCardGroup title="Approved" :pullRequests="store.state.pullRequests.approved" />
+          <PRCardGroup
+            title="Approved"
+            :pullRequests="store.state.pullRequests.approved"
+            :showWIP="setting.state.showWIP"
+            :showDraft="setting.state.showDraft"
+          />
         </div>
         <div class="column is-3 g-full-height">
-          <PRCardGroup title="Own" :pullRequests="store.state.pullRequests.own" />
+          <!-- 自身のPR は設定に関係なく、WIPもDraftも表示する -->
+          <PRCardGroup title="Own" :pullRequests="store.state.pullRequests.own" showWIP showDraft />
         </div>
       </div>
     </div>
@@ -51,7 +67,7 @@ export default defineComponent({
       }
     )
 
-    return { store }
+    return { store, setting }
   }
 })
 </script>

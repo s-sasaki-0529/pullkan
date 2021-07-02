@@ -13,20 +13,26 @@ export const useSetting = () => {
 
 export type Setting = {
   repositories: Repository[]
+  showWIP: boolean
+  showDraft: boolean
 }
 
 export type Store = {
   state: Setting
-  save: (setting: Setting) => void
+  save: () => void
   load: () => void
 }
 
 export const createSetting = () => {
-  const state = reactive<Setting>({ repositories: [] })
+  const state = reactive<Setting>({
+    repositories: [],
+    showDraft: false,
+    showWIP: false
+  })
 
-  const save = (setting: Setting) => {
-    state.repositories = setting.repositories
-    localStorage.setItem('setting', JSON.stringify(setting))
+  const save = () => {
+    localStorage.setItem('setting', JSON.stringify(state))
+    console.log(localStorage.getItem('setting'))
   }
 
   const load = () => {
@@ -34,6 +40,8 @@ export const createSetting = () => {
     if (rawSetting) {
       const parsedSetting = JSON.parse(rawSetting) as Setting
       state.repositories = parsedSetting.repositories.map(r => new Repository(r.id, r.ownerId, r.name))
+      state.showDraft = !!parsedSetting.showDraft
+      state.showWIP = !!parsedSetting.showWIP
     }
   }
 
