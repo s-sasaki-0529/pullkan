@@ -58,8 +58,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .board {
-  // NOTE: 80pxはヘッダーだろうけどマジックナンバーよくない
-  height: calc(100% - 80px);
+  // NOTE: 55pxはヘッダーだろうけどマジックナンバーよくない
+  height: calc(100% - 55px);
   .content {
     height: 100%;
   }

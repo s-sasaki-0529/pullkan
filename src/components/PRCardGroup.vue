@@ -1,13 +1,15 @@
 <template>
   <div class="card-group g-full-height">
-    <div class="title is-5">
+    <div class="card-group-header title is-5">
       <div class="tag is-danger is-light is-rounded">
         {{ pullRequests.length }}
       </div>
       {{ title }}
     </div>
-    <div class="pr-card-wrapper" :key="pr.id" v-for="pr in pullRequests">
-      <PRCard :pr="pr" />
+    <div class="card-group-body">
+      <div class="pr-card-wrapper" :key="pr.id" v-for="pr in pullRequests">
+        <PRCard :pr="pr" />
+      </div>
     </div>
   </div>
 </template>
@@ -38,15 +40,21 @@ export default defineComponent({
   background-color: $light;
   border-radius: 2%;
   min-height: '100%';
-  overflow: auto;
 
-  .title {
-    padding: 10px;
-    margin: 0;
+  .card-group-header {
+    &.title {
+      padding: 10px;
+      margin: 0;
+    }
   }
 
-  .pr-card-wrapper {
-    padding: 15px;
+  .card-group-body {
+    height: calc(100% - 45px);
+    overflow: auto;
+
+    .pr-card-wrapper {
+      padding: 15px;
+    }
   }
 }
 </style>
