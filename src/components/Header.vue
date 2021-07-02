@@ -7,12 +7,16 @@
       </template>
     </div>
     <div class="controls">
-      <span class="icon" :class="{ loading: store.state.onLoading }" @click="reload">
-        <i class="fas fa-sync"></i>
-      </span>
-      <span class="icon" @click="showConfigModal">
-        <i class="fas fa-cog"></i>
-      </span>
+      <button class="button" :class="{ 'is-loading': store.state.onLoading }" @click="reload">
+        <span class="icon">
+          <i class="fas fa-sync"></i>
+        </span>
+      </button>
+      <button class="button" @click="showConfigModal">
+        <span class="icon">
+          <i class="fas fa-cog"></i>
+        </span>
+      </button>
     </div>
   </header>
 
@@ -64,7 +68,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding: 30px 20px 30px 20px;
   height: 50px;
 
   .current-user {
@@ -90,14 +94,6 @@ export default defineComponent({
         animation: spin 1s linear infinite;
       }
     }
-  }
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
 </style>

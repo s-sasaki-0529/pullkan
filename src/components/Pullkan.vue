@@ -66,4 +66,11 @@ export default defineComponent({
     height: 100%;
   }
 }
+
+.button {
+  // bluma が設定しているボタンのデフォルトスタイルを上書きするためのimportant
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: gray !important;
+}
 </style>
