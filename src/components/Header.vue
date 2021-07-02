@@ -1,15 +1,19 @@
 <template>
   <header class="header">
-    <template v-if="currentUser.name">
-      <img class="current-user-icon" :src="currentUser.avatarUrl" />
-      <a :href="`https://github.com/${currentUser.name}`" class="current-user-name">{{ currentUser.name }}</a>
-    </template>
-    <span class="icon" :class="{ loading: store.state.onLoading }" @click="reload">
-      <i class="fas fa-sync"></i>
-    </span>
-    <span class="icon" @click="showConfigModal">
-      <i class="fas fa-cog"></i>
-    </span>
+    <div class="current-user">
+      <template v-if="currentUser.name">
+        <img class="icon" :src="currentUser.avatarUrl" />
+        <a :href="`https://github.com/${currentUser.name}`" class="name">{{ currentUser.name }}</a>
+      </template>
+    </div>
+    <div class="controls">
+      <span class="icon" :class="{ loading: store.state.onLoading }" @click="reload">
+        <i class="fas fa-sync"></i>
+      </span>
+      <span class="icon" @click="showConfigModal">
+        <i class="fas fa-cog"></i>
+      </span>
+    </div>
   </header>
 
   <SettingModal v-if="isShowSettingModal" :onClose="() => (isShowSettingModal = false)" />
@@ -58,25 +62,33 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 30px;
   height: 50px;
-  .current-user-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  .current-user-name {
-    font-size: 1.5em;
-  }
-  .icon {
-    margin-left: 5px;
-    cursor: pointer;
 
-    &.loading {
-      animation: spin 1s linear infinite;
+  .current-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .name {
+      font-size: 1.5em;
+    }
+  }
+  .controls {
+    .icon {
+      margin-left: 5px;
+      cursor: pointer;
+
+      &.loading {
+        animation: spin 1s linear infinite;
+      }
     }
   }
 }
