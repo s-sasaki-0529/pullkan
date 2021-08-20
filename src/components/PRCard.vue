@@ -23,8 +23,8 @@
         <div class="title is-6">
           <span>{{ pr.title }}</span>
         </div>
-        <div v-if="approvers.size" class="approvers">
-          <span class="check">approved by </span>
+        <div v-if="approvers.length > 0" class="reviewers">
+          <span class="check">approved </span>
           <img
             class="user-icon"
             width="16"
@@ -32,6 +32,17 @@
             :src="approver.avatarUrl"
             :key="approver.id"
             v-for="approver in approvers"
+          />
+        </div>
+        <div v-else-if="commenters.length > 0" class="reviewers">
+          <span class="check">commented </span>
+          <img
+            class="user-icon"
+            width="16"
+            height="16"
+            :src="commenter.avatarUrl"
+            :key="commenter.id"
+            v-for="commenter in commenters"
           />
         </div>
         <div v-if="pr.labels" class="tags">
@@ -63,7 +74,8 @@ export default defineComponent({
   setup(props) {
     return {
       repository: computed(() => props.pr.repository),
-      approvers: computed(() => props.pr.approvers())
+      approvers: computed(() => props.pr.approvers()),
+      commenters: computed(() => props.pr.commenters())
     }
   }
 })
@@ -91,7 +103,7 @@ export default defineComponent({
     .title {
       margin: 0;
     }
-    .approvers {
+    .reviewers {
       color: green;
       display: inline;
       vertical-align: middle;

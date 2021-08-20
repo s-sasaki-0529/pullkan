@@ -50,20 +50,26 @@ export class PR {
   }
 
   approvers() {
-    const approvers = new Set<User>()
+    const reviewers = this.reviewList.reviews.map(review => review.user)
+    const approverIds = new Set<string>()
 
     this.reviewList.reviews.forEach(review => {
       if (review.state === 'APPROVED') {
-        approvers.add(review.user)
+        approverIds.add(review.user.id)
       } else if (review.state === 'DISMISSED' || review.state === 'CHANGES_REQUESTED') {
-        approvers.delete(review.user)
+        approverIds.delete(review.user.id)
       }
     })
 
-    return approvers
+    return Array.from(approverIds).map(approverId => reviewers.find(reviewr => reviewr.id === approverId))
+  }
+
+  commenters() {
+    const commenters = this.reviewList.reviews.map(review => review.user)
+    return commenters.filter((c1, index) => commenters.findIndex(c2 => c2.id === c1.id) === index)
   }
 
   approvedCount() {
-    return this.approvers().size
+    return this.approvers().length
   }
 }

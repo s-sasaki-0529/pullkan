@@ -56,12 +56,12 @@ export const createStore = (): Store => {
   // PR一覧を所有/レビュー待ち/レビュー済み/承認済みに分類する
   // FIXME: createStore関数内に定義するのは微妙かも
   const organizePRs = (pullRequests: PR[]): OrganizedPullRequests => {
-    const organizedPRs = {
+    const organizedPRs: OrganizedPullRequests = {
       own: [],
       requested: [],
       inReview: [],
       approved: []
-    } as OrganizedPullRequests
+    }
 
     pullRequests.forEach(pr => {
       // 自身のPR一覧
