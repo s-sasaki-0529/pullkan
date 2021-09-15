@@ -55,7 +55,7 @@ async function dispatchCallPullRequests(repository: Repository): Promise<PR[]> {
       new ReviewList(
         node.reviews.edges.map(e => {
           return new Review(
-            new User(e.node.author.id || '', e.node.author.login || '', e.node.author.avatarUrl || ''),
+            new User(e.node.author?.id || '', e.node.author?.login || '', e.node.author?.avatarUrl || ''),
             e.node.state,
             new Date(e.node.createdAt)
           )
